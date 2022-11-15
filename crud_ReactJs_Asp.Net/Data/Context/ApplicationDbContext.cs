@@ -8,6 +8,6 @@ namespace crud_ReactJs_Asp.Net.Data.Context {
 
         }
         //This is how to reference the model to map in our database
-        public DbSet<Person>? Person { get; set; }
+        public DbSet<Person> Person { get; set; }
     }
 }
