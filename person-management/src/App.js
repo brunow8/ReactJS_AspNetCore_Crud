@@ -1,16 +1,15 @@
 import "./App.css";
-import CreatePersonCard from "./components/Cards/CreatePersonCard";
-import ViewPersonsCard from "./components/Cards/ViewPersonsCard";
+import CreatePersonCard from "./components/Home/CreatePersonCard";
+import ViewPersonsCard from "./components/Home/ViewPersonsCard";
+import MainContainer from "./components/Shared/MainContainer";
 
 function App() {
   return (
-    <div className="background">
-      <div className="container">
-        <div className="row">
-          <ViewPersonsCard />
-          <CreatePersonCard />
-        </div>
-      </div>
+    <div className="MainApp">
+      <MainContainer>
+        <ViewPersonsCard />
+        <CreatePersonCard />
+      </MainContainer>
     </div>
   );
 }
