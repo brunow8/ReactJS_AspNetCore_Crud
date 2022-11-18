@@ -1,119 +1,24 @@
 .MainApp {
   background-image: url("./../public/images/background.jpg");
-  background-repeat: no-repeat;
+  background-repeat: round;
   width: 100vw;
   height: 100vh;
 }
 
-/* .cardPerson{
-  border-radius: 20px;
-  background: #343a3f;
-  cursor: pointer;
-}
-
-.cardPerson:hover{
-  box-shadow: 1px 11px 12px;
-} */
-
-.cardPerson {
-  width: 70%;
-  height: 400px;
-  background-color: #292929;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  border: 2px solid rgba(7, 7, 7, 0.12);
-  font-size: 16px;
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.cardPerson .title {
-  width: 100%;
-  margin: 0;
-  text-align: center;
-  margin-top: 30px;
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-}
-
-.cardPerson .text {
-  width: 80%;
-  margin: 0 auto;
-  font-size: 13px;
-  text-align: center;
-  margin-top: 20px;
-  color: white;
-  font-weight: 200;
-  letter-spacing: 2px;
-  opacity: 0;
-  max-height: 0;
-  transition: all 0.3s ease;
-}
-
-.cardPerson:hover {
-  height: 260px;
-  box-shadow: 0px 2px 10px rgb(0 0 0 / 24%);
-}
-
-.cardPerson:hover .info {
-  height: 90%;
-}
-
-.cardPerson:hover .text {
-  transition: all 0.3s ease;
-  opacity: 1;
-  max-height: 40px;
-}
-
-.cardPerson:hover .icon {
-  background-position: -120px;
-  transition: all 0.3s ease;
-}
-
-.cardPerson:hover .icon span {
-  background: linear-gradient(90deg, #ff7e7e, #ff4848);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 1;
-  transition: all 0.3s ease;
-  color: #ff7e7e;
-}
-
-.icon {
-  width: 100%;
-  height: 80px;
-  max-width: 80px;
-  background: linear-gradient(
-    90deg,
-    #ff7e7e 0%,
-    #ff4848 40%,
-    rgba(0, 0, 0, 0.28) 60%
-  );
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  background-size: 200px;
-}
-
-.personIcon {
-  font-size: 60px !important;
-}
-
 .containerApp {
   background: #292929;
-  height: 700px;
+  height: 87vh;
   border-radius: 20px;
   position: relative;
   top: 50px;
+}
+
+@media only screen and (max-width: 575.98px) and (min-width: 300px) {
+  .containerApp {
+    height: 101vh;
+    border-radius: 0px;
+    top: 0px;
+  }
 }
 
 .arrowBack {
@@ -123,30 +28,6 @@
   left: 38px;
   font-size: 35px !important;
   cursor: pointer;
-}
-
-.personContainer {
-  margin-top: 50px;
-  height: 570px;
-  position: relative;
-  left: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.personCard {
-  background: #3c3a3a;
-  width: 98%;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  border: 1px solid #676767;
-  cursor: pointer;
-  height: 340px;
-}
-.personCard:hover {
-  box-shadow: 1px 4px 8px #0b0b0b;
-  border: 1px solid #0b0b0b;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -161,144 +42,4 @@
 .scrollbar::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 10px;
-}
-
-.imagePersonCard {
-  width: 90%;
-  height: 55%;
-  border-radius: 50%;
-  margin-top: 20px;
-}
-
-.namePersonCard {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: rgb(209, 199, 199);
-  font-size: 30px;
-  font-weight: 600;
-}
-
-.editButton {
-  width: 35px;
-  height: 30px;
-  border: 1px solid #2f6e82;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  color: #2f6e82;
-  margin-left: 20px;
-}
-
-.editButton:hover {
-  background: #2f6e82;
-  color: rgb(227, 220, 220);
-}
-
-.deleteButton {
-  width: 35px;
-  height: 30px;
-  border: 1px solid #ad2323;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  color: #ad2323;
-  margin-right: 20px;
-  padding-top: 2px;
-}
-
-.deleteButton:hover {
-  background: #ad2323;
-  color: rgb(227, 220, 220);
-}
-
-form {
-  transform: translate(-10%, -50%);
-  transition: all 1s;
-  width: 50px;
-  height: 50px;
-  background: #3c3a3a;
-  box-sizing: border-box;
-  border-radius: 25px;
-  border: 1px solid #676767;
-  padding-left: 50px;
-  margin-top: 20px;
-  position: relative;
-  top: 20px;
-}
-
-input {
-  width: 100%;
-  height: 42px;
-  line-height: 30px;
-  outline: 0;
-  border: 0;
-  display: none;
-  font-size: 1em;
-  border-radius: 20px;
-  padding: 0 20px;
-  position: relative;
-  left: -40px;
-  top: 4px;
-  color: #cec8c8;
-  background: #3c3a3a;
-}
-
-.searchIcon {
-  box-sizing: border-box;
-  padding: 10px;
-  width: 42.5px;
-  height: 42.5px;
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  border-radius: 50%;
-  color: white;
-  text-align: center;
-  font-size: 1.4em;
-  transition: all 1s;
-}
-
-.closeSearch {
-  box-sizing: border-box;
-  padding: 10px;
-  width: 42.5px;
-  height: 42.5px;
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  border-radius: 50%;
-  color: white;
-  text-align: center;
-  font-size: 1.4em;
-  transition: all 1s;
-}
-
-form:hover,
-form:valid {
-  width: 200px;
-  cursor: pointer;
-}
-
-form:hover input,
-form:valid input {
-  display: block;
-}
-
-form:hover .searchIcon,
-form:valid .searchIcon {
-  background: #161616;
-  color: white;
-}
-
-form:hover .closeSearch,
-form:valid .closeSearch {
-  background: #161616;
-  color: white;
-}
-
-.putOpacity {
-  opacity: 1 !important;
-}
-
-.takeOpacity {
-  opacity: 0;
 }

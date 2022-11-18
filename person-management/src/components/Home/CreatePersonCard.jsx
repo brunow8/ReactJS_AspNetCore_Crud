@@ -1,14 +1,14 @@
 import React from "react";
-
+import style from './../../css/HomePage.module.css'
 const CreatePersonCard = () => {
   return (
-    <div className="col-12 col-md-6 d-flex justify-content-center" style={{height: "100vh", alignItems: "center"}}>
-        <div className="cardPerson">
-        <div className="icon">
-            <span className="material-icons personIcon">person_add</span>
+    <div className={`col-12 col-md-6 ${style.homePageColumn}`}>
+        <div className={`${style.cardPerson}`}>
+        <div className={`${style.icon}`}>
+            <span className={`material-icons ${style.personIcon}`}>person_add</span>
         </div>
-        <p className="title">Create Person</p>
-        <p className="text">Click here to add a new person.</p>
+        <p className={`${style.title}`}>Create Person</p>
+        <p className={`${style.text}`}>Click here to add a new person.</p>
       </div>
     </div>
   );

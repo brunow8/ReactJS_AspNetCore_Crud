@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import style from './../../css/AllPersons.module.css';
 
 const SearchbarInput = (props) => {
   const [searchText, setSearchText] = useState("");
@@ -15,8 +16,9 @@ const SearchbarInput = (props) => {
 
   return (
     <div className="col-12 d-flex justify-content-end">
-      <form action="">
+      <form className={style.formSearchBar} action="">
         <input
+          className={style.inputSearchBar}
           placeholder="Search..."
           type="text"
           required
@@ -24,15 +26,15 @@ const SearchbarInput = (props) => {
           onChange={OnHandlerChange}
         />
         <span
-          className={`material-icons searchIcon ${
-            searchText !== "" ? "takeOpacity" : "putOpacity"
+          className={`material-icons ${style.searchIcon} ${
+            searchText !== "" ? `${style.takeOpacity}` : `${style.putOpacity}`
           }`}
         >
           search
         </span>
         <span
-          className={`material-icons closeSearch ${
-            searchText !== "" ? "putOpcaity" : "takeOpacity"
+          className={`material-icons ${style.closeSearch} ${
+            searchText !== "" ? `${style.putOpcaity}` : `${style.takeOpacity}`
           }`}
           onClick={ClearText}
         >

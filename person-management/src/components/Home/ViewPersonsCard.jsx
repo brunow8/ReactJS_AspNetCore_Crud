@@ -1,4 +1,5 @@
 import React from "react";
+import style from './../../css/HomePage.module.css'
 
 const ViewPersonsCard = (props) => {
   const GoTo = (data) => {
@@ -6,16 +7,14 @@ const ViewPersonsCard = (props) => {
   }
   return (
     <div
-      className="col-12 col-md-6 d-flex justify-content-center"
-      style={{ height: "100vh", alignItems: "center" }}
-      
+      className={`col-12 col-md-6 ${style.homePageColumn}`}
     >
-      <div className="cardPerson" onClick={() => GoTo("allPersons")}>
-        <div className="icon">
-          <span className="material-icons personIcon">people</span>
+      <div className={`${style.cardPerson}`} onClick={() => GoTo("allPersons")}>
+        <div className={`${style.icon}`}>
+          <span className={`material-icons ${style.personIcon}`}>people</span>
         </div>
-        <p className="title">All Persons</p>
-        <p className="text">Click here to view, edit or delete all persons.</p>
+        <p className={`${style.title}`}>All Persons</p>
+        <p className={`${style.text}`}>Click here to view, edit or delete all persons.</p>
       </div>
     </div>
   );
