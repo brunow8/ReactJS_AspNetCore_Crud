@@ -4,6 +4,7 @@ import CreatePersonCard from "./components/Home/CreatePersonCard";
 import ViewPersonsCard from "./components/Home/ViewPersonsCard";
 import MainContainer from "./components/Shared/MainContainer";
 import AllPersons from "./components/Persons/AllPersons";
+import CreatePerson from "./components/Persons/CreatePerson";
 
 const App = () => {
 
@@ -54,7 +55,7 @@ const App = () => {
   } else if (appSettings.allPersons) {
     content = <AllPersons GoBack={GoBack} />;
   } else if (appSettings.createPerson) {
-    content = "";
+    content = <CreatePerson GoBack={GoBack} />;
   }
 
   return (

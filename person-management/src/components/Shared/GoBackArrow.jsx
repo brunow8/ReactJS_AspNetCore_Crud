@@ -4,6 +4,8 @@ const GoBackArrow = (props) => {
   const GoBack = (data) => {
     if (data === "allPersons") {
       props.allPersons(data);
+    }else if(data === "createPerson"){
+      props.createPerson(data);
     }
   };
   return (

@@ -2,7 +2,6 @@
   background-image: url("./../public/images/background.jpg");
   background-repeat: round;
   width: 100vw;
-  height: 100vh;
 }
 
 .containerApp {
@@ -28,6 +27,7 @@
   left: 38px;
   font-size: 35px !important;
   cursor: pointer;
+  z-index: 1;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -42,4 +42,10 @@
 .scrollbar::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 10px;
+}
+
+@media only screen and (min-width: 767.98px){
+  .MainApp{
+    height: 100vh;
+  }
 }
