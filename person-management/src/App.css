@@ -1,12 +1,13 @@
 .MainApp {
   background-image: url("./../public/images/background.jpg");
-  background-repeat: round;
+  background-repeat: repeat;
   width: 100vw;
+  height: 100vh;
 }
 
 .containerApp {
   background: #292929;
-  height: 87vh;
+  height: auto;
   border-radius: 20px;
   position: relative;
   top: 50px;
@@ -44,8 +45,108 @@
   border-radius: 10px;
 }
 
-@media only screen and (min-width: 767.98px){
-  .MainApp{
-    height: 100vh;
+.inputText {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  color: #d8c7c7;
+  background-color: #454444;
+  border: 1px solid #d8c7c7;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 10px;
+  transition: border 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.labelDivInput {
+  color: #fff;
+  position: relative;
+  top: 1px;
+  left: 40px;
+  background: #292929;
+  text-align: center;
+  font-family: system-ui;
+  font-weight: 600;
+}
+
+.labelPosition {
+  position: relative;
+  top: 8px;
+}
+
+.circleNotCheck {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d9d9d9;
+}
+
+.circleCheck{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+  background: #2F6E82;
+}
+
+.genderText{
+  padding-right: 20px;
+    color: #fff;
+    font-family: system-ui;
+}
+
+.errorText{
+  color: #db0909c9;
+    font-family: ui-monospace;
+    text-indent: 50px;
+    font-size: 14px;
+}
+
+.streetAdressDiv{
+  width: 92%;
+}
+
+.zipCodeDiv{
+  width: 84%;
+}
+
+.normalDiv{
+  width: 90%;
+}
+
+.emailDiv{
+  width: 95%;
+}
+
+@media only screen and (max-width: 768px){
+  .streetAdressDiv{
+    width: 90%;
+  }
+  .zipCodeDiv{
+    width: 90%;
+  }
+  .emailDiv{
+    width: 90%;
   }
 }
+
+.createPersonButton{
+  width: 50%;
+  color: #2F6E82;
+  border: 1px solid #2F6E82;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.createPersonButton:hover{
+  color: #D9D9D9;
+  background: #2F6E82;
+}
+
