@@ -6,6 +6,8 @@ const GoBackArrow = (props) => {
       props.allPersons(data);
     }else if(data === "createPerson"){
       props.createPerson(data);
+    }else if(data === "viewPerson"){
+      props.viewPerson(data);
     }
   };
   return (

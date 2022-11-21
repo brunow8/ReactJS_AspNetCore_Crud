@@ -14,6 +14,21 @@ const InputImage = (props) => {
     document.getElementById("inputImage").click();
   };
 
+  if (props.disabled) {
+    return (
+      <div
+        className={`col-12 d-flex justify-content-center ${style.ImageDivPosition}`}
+      >
+        <div>
+          <img
+            src={require(`./../../images/${props.src}`)}
+            className={`${style.imageDisabled}`}
+            alt="person"
+          />
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div

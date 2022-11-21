@@ -9,6 +9,16 @@
   cursor: pointer;
 }
 
+.imageDisabled {
+  border-radius: 50%;
+  background: #3c3a3a;
+  height: 185px;
+  width: 185px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
 .textFormation {
   font-size: 12px;
   color: #fff;

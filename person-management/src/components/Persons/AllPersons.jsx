@@ -7,60 +7,6 @@ import Swal from "sweetalert2";
 
 
 const AllPersons = (props) => {
-  const [initialPersons, setInitialPersons] = useState([
-    {
-      id: "1",
-      firstName: "Bruno",
-      lastName: "Barbosa",
-      birthday: "13/03/1999",
-      gender: "Male",
-      nif: "987654321",
-      cellphone: "987654321",
-      zipcode: "4421-003",
-      streetAddress: "Rua das Flores 753",
-      email: "example@gmail.com",
-      photo: "personImage.jfif",
-    },
-    {
-      id: "2",
-      firstName: "Tiago",
-      lastName: "Silva",
-      birthday: "13/03/1999",
-      gender: "Male",
-      nif: "987654321",
-      cellphone: "987654321",
-      zipcode: "4421-003",
-      streetAddress: "Rua das Flores 753",
-      email: "example@gmail.com",
-      photo: "personImage.jfif",
-    },
-    {
-      id: "3",
-      firstName: "Catarina",
-      lastName: "Rodrigues",
-      birthday: "13/03/1999",
-      gender: "Female",
-      nif: "987654321",
-      cellphone: "987654321",
-      zipcode: "4421-003",
-      streetAddress: "Rua das Flores 753",
-      email: "example@gmail.com",
-      photo: "personImage.jfif",
-    },
-    {
-      id: "4",
-      firstName: "Silvía",
-      lastName: "Campos",
-      birthday: "13/03/1999",
-      gender: "Other",
-      nif: "987654321",
-      cellphone: "987654321",
-      zipcode: "4421-003",
-      streetAddress: "Rua das Flores 753",
-      email: "example@gmail.com",
-      photo: "personImage.jfif",
-    },
-  ]);
   const [searchText, setSearchText] = useState("");
 
   const OnHandlerSearchText = (searchText) => {
@@ -68,6 +14,7 @@ const AllPersons = (props) => {
   };
 
   const deleteHandler = (data) => {
+    //"data" is the person that he have to pass in the body request to the api call to delete the user from the database
     Swal.fire({
       title: "Are you sure you want to delete this person?",
       text: "If deleted you won’t be able to recover it!",
@@ -79,17 +26,22 @@ const AllPersons = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Person deleted with sucess!", "success");
+        //API CALL TO DELETE USER FROM THE DATABASE
       }
     });
   };
+
+  const viewHandler = (person) => {
+    props.personView(person);
+  }
   return (
     <>
       <GoBackArrow location={"allPersons"} allPersons={props.GoBack} />
       <SearchbarInput OnHandlerSearchText={OnHandlerSearchText} />
       <div className={`row ${style.personContainer} scrollbar`}>
-        {initialPersons.filter(person => person.firstName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())).map((person, index) => {
+        {props.initialPersons.filter(person => person.firstName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())).map((person, index) => {
           return(
-            <PersonCard key={person.id} onHandlerInput={deleteHandler} personDetails={person}/>
+            <PersonCard key={person.id} onHandlerView={viewHandler} onHandlerDeleteInput={deleteHandler} personDetails={person}/>
           )
         })}
       </div>

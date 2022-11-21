@@ -99,6 +99,7 @@ const CreatePerson = (props) => {
         src={newPerson.photo}
         changePhotoName={changePhotoName}
         errors={errors.photo}
+        disabled={false}
       />
       <InputText
         value={newPerson.firstName}
