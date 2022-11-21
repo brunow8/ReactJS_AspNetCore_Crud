@@ -2,7 +2,10 @@ import React from "react";
 import personImage from "./../../images/personImage.jfif";
 import style from './../../css/AllPersons.module.css'
 
-const PersonCard = () => {
+const PersonCard = (props) => {
+  const deletePerson = (data) => {
+    props.onHandlerInput(data);
+  }
   return (
     <div className="col-md-4 col-sm-6 col-12 d-flex justify-content-center">
       <div className={`${style.personCard} mt-2`}>
@@ -15,17 +18,17 @@ const PersonCard = () => {
             />
           </div>
           <div className="d-flex justify-content-center">
-            <h4 className={style.namePersonCard}>Bruno</h4>
+            <h4 className={style.namePersonCard}>{props.personDetails.firstName}</h4>
           </div>
           <div className="d-flex justify-content-center">
-            <h4 className={style.namePersonCard}>Barbosa</h4>
+            <h4 className={style.namePersonCard}>{props.personDetails.lastName}</h4>
           </div>
           <div
             className="d-flex justify-content-between"
             style={{ width: "100%" }}
           >
             <span className={`material-icons ${style.editButton}`}>edit</span>
-            <span className={`material-icons ${style.deleteButton}`}>delete</span>
+            <span className={`material-icons ${style.deleteButton}`} onClick={() => deletePerson(props.personDetails)}>delete</span>
           </div>
         </div>
       </div>

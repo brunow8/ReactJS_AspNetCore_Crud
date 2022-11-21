@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./../../css/Input.module.css";
 
 const InputText = (props) => {
   let inputCol = "";
@@ -25,19 +26,19 @@ const InputText = (props) => {
   return (
     <div className={`col-12 ${inputCol} d-flex justify-content-center`}>
       <div className= {`${divSize}`}>
-        <div className="labelDivInput" style={{ width: `${labelSize}` }}>
-          <label className="labelPosition">{props.labelName}</label>
+        <div className={`${style.labelDivInput}`} style={{ width: `${labelSize}` }}>
+          <label className={`${style.labelPosition}`}>{props.labelName}</label>
         </div>
         <input
           type={props.type}
           value={props.value}
           name={props.name}
           onChange={onHandlerInput}
-          className="inputText"
+          className={`${style.inputText}`}
           disabled={props.disabled}
           placeholder={props.placeholder}
         />
-        {props.errors !== "" ? <p className="errorText">{props.errors}</p> : ""}
+        {props.errors !== "" ? <p className={`${style.errorText}`}>{props.errors}</p> : ""}
       </div>
     </div>
   );

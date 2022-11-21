@@ -4,6 +4,7 @@ import InputImage from "../Others/InputImage";
 import InputText from "../Others/InputText";
 import validation from "../Others/Validation";
 import GoBackArrow from "../Shared/GoBackArrow";
+import style from './../../css/AllPersons.module.css';
 
 const CreatePerson = (props) => {
   const [newPerson, setNewPerson] = useState({
@@ -72,6 +73,7 @@ const CreatePerson = (props) => {
     e.preventDefault();
     setErrors(validation(newPerson));
     if (errors.hasError === false) {
+      //API CALL TO ADD THE NEW PERSON TO THE DATABASE 
       console.log("Person created with success!");
       setNewPerson({
         firstName: "",
@@ -86,6 +88,7 @@ const CreatePerson = (props) => {
         photo: "",
       });
     } else {
+      //DISPLAY ERRORS TO THE USER AND PERSON NOT CREATED
       console.log("You have errors!");
     }
   };
@@ -184,7 +187,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: example@gmail.com"}
       />
       <div className="col-12 d-flex justify-content-center">
-        <div className="createPersonButton" onClick={submitNewPerson}>
+        <div className={`${style.createPersonButton}`} onClick={submitNewPerson}>
           Create Person
         </div>
       </div>

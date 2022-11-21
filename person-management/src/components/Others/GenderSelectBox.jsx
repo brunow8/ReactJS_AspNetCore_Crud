@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./../../css/Input.module.css";
 
 const GenderSelectBox = (props) => {
   const checkCircle = (gender) => {
@@ -15,46 +16,53 @@ const GenderSelectBox = (props) => {
 
   return (
     <div className={`col-12 col-md-6 d-flex justify-content-center`}>
-      <div style={{ width: "90%" }}>
-        <div className="labelDivInput" style={{ width: "70px" }}>
-          <label className="labelPosition">Gender</label>
+      <div className={`${style.colDivGender}`}>
+        <div className={`${style.labelDivInputGender}`}>
+          <label className={`${style.labelPosition}`}>Gender</label>
         </div>
-        <div
-          className="d-flex justify-content-end"
-          style={{ borderTop: "1px solid #d9d9d9", borderRadius: "10px", height: "38px" }}
-        >
+        <div className={`d-flex justify-content-end ${style.optionsGender}`}>
           <div className="d-flex justify-content-center mt-2">
             <div
               className={`${
-                props.gender === "Male" ? "circleCheck" : "circleNotCheck"
+                props.gender === "Male"
+                  ? style.circleCheck
+                  : style.circleNotCheck
               } me-3`}
               style={{ cursor: `${props.disabled ? "" : "pointer"}` }}
               onClick={() => checkCircle("Male")}
             ></div>
-            <p className="genderText">Male</p>
+            <p className={`${style.genderText}`}>Male</p>
           </div>
           <div className="d-flex justify-content-center mt-2">
             <div
               className={`${
-                props.gender === "Female" ? "circleCheck" : "circleNotCheck"
+                props.gender === "Female"
+                  ? style.circleCheck
+                  : style.circleNotCheck
               } me-3`}
               style={{ cursor: `${props.disabled ? "" : "pointer"}` }}
               onClick={() => checkCircle("Female")}
             ></div>
-            <p className="genderText">Female</p>
+            <p className={`${style.genderText}`}>Female</p>
           </div>
           <div className="d-flex justify-content-center mt-2">
             <div
               className={`${
-                props.gender === "Other" ? "circleCheck" : "circleNotCheck"
+                props.gender === "Other"
+                  ? style.circleCheck
+                  : style.circleNotCheck
               } me-3`}
               style={{ cursor: `${props.disabled ? "" : "pointer"}` }}
               onClick={() => checkCircle("Other")}
             ></div>
-            <p className="genderText">Other</p>
+            <p className={`${style.genderText}`}>Other</p>
           </div>
         </div>
-        {props.errors !== "" ? <p className="errorText">{props.errors}</p> : ""}
+        {props.errors !== "" ? (
+          <p className={`${style.errorText}`}>{props.errors}</p>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
