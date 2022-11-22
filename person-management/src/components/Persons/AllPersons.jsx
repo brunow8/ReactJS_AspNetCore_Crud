@@ -13,6 +13,7 @@ const AllPersons = (props) => {
     setSearchText(searchText);
   };
 
+
   const deleteHandler = (data) => {
     //"data" is the person that he have to pass in the body request to the api call to delete the user from the database
     Swal.fire({
@@ -34,14 +35,20 @@ const AllPersons = (props) => {
   const viewHandler = (person) => {
     props.personView(person);
   }
+  const editHandler = (person) => {
+    props.personEdit(person);
+  }
+
   return (
     <>
       <GoBackArrow location={"allPersons"} allPersons={props.GoBack} />
       <SearchbarInput OnHandlerSearchText={OnHandlerSearchText} />
       <div className={`row ${style.personContainer} scrollbar`}>
+        {props.initialPersons.length === 0 && <h1 className="d-flex justify-content-center" style={{color: "#2f6e82"}}>Resultados não encontrados</h1>}
+        {props.initialPersons.filter(person => person.firstName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())).length === 0 && <h1 className="d-flex justify-content-center" style={{color: "#2f6e82"}}>Resultados não encontrados</h1>}
         {props.initialPersons.filter(person => person.firstName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())).map((person, index) => {
           return(
-            <PersonCard key={person.id} onHandlerView={viewHandler} onHandlerDeleteInput={deleteHandler} personDetails={person}/>
+            <PersonCard key={person.id} onHandlerView={viewHandler} onHandlerDeleteInput={deleteHandler} personDetails={person} editHandler={editHandler}/>
           )
         })}
       </div>

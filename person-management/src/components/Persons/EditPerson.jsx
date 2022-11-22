@@ -7,87 +7,20 @@ import GoBackArrow from "../Shared/GoBackArrow";
 import style from './../../css/AllPersons.module.css';
 import swal from 'sweetalert2';
 const CreatePerson = (props) => {
-  const [newPerson, setNewPerson] = useState({
-    firstName: "",
-    lastName: "",
-    birthday: "",
-    gender: "",
-    nif: "",
-    cellphone: "",
-    zipcode: "",
-    streetAddress: "",
-    email: "",
-    photo: "",
-  });
   const [errors, setErrors] = useState({});
 
-  const changePhotoName = (imageName) => {
-    setNewPerson((prevState) => {
-      return { ...prevState, photo: imageName };
-    });
-  };
-
-  const handlerGender = (gender) => {
-    setNewPerson((prevState) => {
-      return { ...prevState, gender: gender };
-    });
-  };
-
   const onHandlerInput = (value, input) => {
-    if (input === "firstName") {
-      setNewPerson((prevState) => {
-        return { ...prevState, firstName: value };
-      });
-    } else if (input === "lastName") {
-      setNewPerson((prevState) => {
-        return { ...prevState, lastName: value };
-      });
-    } else if (input === "birthday") {
-      setNewPerson((prevState) => {
-        return { ...prevState, birthday: value };
-      });
-    } else if (input === "nif") {
-      setNewPerson((prevState) => {
-        return { ...prevState, nif: value };
-      });
-    } else if (input === "cellphone") {
-      setNewPerson((prevState) => {
-        return { ...prevState, cellphone: value };
-      });
-    } else if (input === "zipcode") {
-      setNewPerson((prevState) => {
-        return { ...prevState, zipcode: value };
-      });
-    } else if (input === "streetAddress") {
-      setNewPerson((prevState) => {
-        return { ...prevState, streetAddress: value };
-      });
-    } else if (input === "email") {
-      setNewPerson((prevState) => {
-        return { ...prevState, email: value };
-      });
-    }
+    props.onHandlerInputText(value, input);
   };
 
-  const submitNewPerson = (e) => {
+  const changesPersonDetails = (e) => {
     e.preventDefault();
-    setErrors(validation(newPerson));
+    setErrors(validation(props.personDetails));
     if (errors.hasError === false) {
       //API CALL TO ADD THE NEW PERSON TO THE DATABASE 
-      setNewPerson({
-        firstName: "",
-        lastName: "",
-        birthday: "",
-        gender: "",
-        nif: "",
-        cellphone: "",
-        zipcode: "",
-        streetAddress: "",
-        email: "",
-        photo: "",
-      });
-      props.GoBack("createPerson");
-      swal.fire("Success!", "Person created with success!", "success");
+      
+      props.GoBack("editPerson");
+      swal.fire("Success!", "Person details changed with success!", "success");
 
     } else {
       //DISPLAY ERRORS TO THE USER AND PERSON NOT CREATED
@@ -96,15 +29,15 @@ const CreatePerson = (props) => {
   };
   return (
     <>
-      <GoBackArrow location={"createPerson"} createPerson={props.GoBack} />
+      <GoBackArrow location={"editPerson"} editPerson={props.GoBack} />
       <InputImage
-        src={newPerson.photo}
-        changePhotoName={changePhotoName}
+        src={props.personDetails.photo}
+        changePhotoName={onHandlerInput}
         errors={errors.photo}
         disabled={false}
       />
       <InputText
-        value={newPerson.firstName}
+        value={props.personDetails.firstName}
         name={"firstName"}
         labelName={"First Name"}
         type={"name"}
@@ -114,7 +47,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Bruno"}
       />
       <InputText
-        value={newPerson.lastName}
+        value={props.personDetails.lastName}
         name={"lastName"}
         labelName={"Last Name"}
         type={"name"}
@@ -124,7 +57,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Barbosa"}
       />
       <InputText
-        value={newPerson.birthday}
+        value={props.personDetails.birthday.replace("/", "-")}
         name={"birthday"}
         labelName={"Date of Birth"}
         type={"date"}
@@ -135,13 +68,13 @@ const CreatePerson = (props) => {
 
       />
       <GenderSelectBox
-        gender={newPerson.gender}
-        handlerGender={handlerGender}
+        gender={props.personDetails.gender}
+        handlerGender={onHandlerInput}
         disabled={false}
         errors={errors.gender}
       />
       <InputText
-        value={newPerson.nif}
+        value={props.personDetails.nif}
         name={"nif"}
         labelName={"Nif"}
         type={"text"}
@@ -151,7 +84,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={newPerson.cellphone}
+        value={props.personDetails.cellphone}
         name={"cellphone"}
         labelName={"Cellphone"}
         type={"text"}
@@ -161,7 +94,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={newPerson.streetAddress}
+        value={props.personDetails.streetAddress}
         name={"streetAddress"}
         labelName={"Street Address"}
         type={"address"}
@@ -170,7 +103,7 @@ const CreatePerson = (props) => {
         errors={errors.streetAddress}
       />
       <InputText
-        value={newPerson.zipcode}
+        value={props.personDetails.zipcode}
         name={"zipcode"}
         labelName={"Zip Code"}
         type={"zip"}
@@ -180,7 +113,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 4421-004"}
       />
       <InputText
-        value={newPerson.email}
+        value={props.personDetails.email}
         name={"email"}
         labelName={"Email"}
         type={"email"}
@@ -190,8 +123,8 @@ const CreatePerson = (props) => {
         placeholder={"Ex: example@gmail.com"}
       />
       <div className="col-12 d-flex justify-content-center">
-        <div className={`${style.createPersonButton}`} onClick={submitNewPerson}>
-          Create Person
+        <div className={`${style.createPersonButton}`} onClick={changesPersonDetails}>
+          Save Changes
         </div>
       </div>
     </>

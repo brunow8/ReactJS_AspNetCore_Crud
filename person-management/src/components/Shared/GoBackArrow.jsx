@@ -8,6 +8,8 @@ const GoBackArrow = (props) => {
       props.createPerson(data);
     }else if(data === "viewPerson"){
       props.viewPerson(data);
+    }else if(data === "editPerson"){
+      props.editPerson(data);
     }
   };
   return (

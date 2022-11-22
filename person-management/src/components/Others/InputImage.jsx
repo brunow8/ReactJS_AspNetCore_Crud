@@ -83,7 +83,7 @@ const InputImage = (props) => {
       </div>
       {props.errors !== "" ? (
         <p
-          className="errorText"
+          className={`${style.errorText}`}
           style={{
             textAlign: "center",
             position: "relative",

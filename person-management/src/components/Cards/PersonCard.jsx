@@ -9,6 +9,9 @@ const PersonCard = (props) => {
   const viewPerson = (data) => {
     props.onHandlerView(data);
   };
+  const editPerson = (data) => {
+    props.editHandler(data);
+  };
   return (
     <div className="col-md-4 col-sm-6 col-12 d-flex justify-content-center">
       <div className={`${style.personCard} mt-2`}>
@@ -33,7 +36,7 @@ const PersonCard = (props) => {
           <div
             className={`d-flex justify-content-between ${style.divIconsPersonCard}`}
           >
-            <span className={`material-icons ${style.editButton}`}>edit</span>
+            <span className={`material-icons ${style.editButton}`} onClick={() => editPerson(props.personDetails)}>edit</span>
             <span
               className={`material-icons ${style.viewButton}`}
               onClick={() => viewPerson(props.personDetails)}

@@ -57,3 +57,10 @@
     top: 0px;
   }
 }
+
+.errorText {
+  color: #db0909c9;
+  font-family: ui-monospace;
+  text-indent: 50px;
+  font-size: 14px;
+}

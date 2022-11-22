@@ -7,7 +7,6 @@ const InputText = (props) => {
   let labelSize = "140px";
   if (props.name === "email") {
     inputCol = "";
-    labelSize = "50px";
     divSize = "emailDiv";
   } else if (props.name === "streetAddress") {
     inputCol = "col-md-8";
