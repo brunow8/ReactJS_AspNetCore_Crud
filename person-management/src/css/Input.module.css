@@ -1,0 +1,78 @@
+.labelDivInput {
+  color: #fff;
+  position: relative;
+  top: 1px;
+  left: 40px;
+  background: #292929;
+  text-align: center;
+  font-family: system-ui;
+  font-weight: 600;
+}
+
+.labelDivInputGender {
+  color: #fff;
+  position: relative;
+  top: 2px;
+  left: 40px;
+  background: #292929;
+  text-align: center;
+  font-family: system-ui;
+  font-weight: 600;
+  width: 140px;
+}
+
+.labelPosition {
+  position: relative;
+  top: 8px;
+}
+
+.colDivGender {
+  width: 90%;
+}
+
+.optionsGender {
+  border-top: 1px solid #d9d9d9;
+  border-radius: 10px;
+  height: 38px;
+}
+.genderText {
+  padding-right: 20px;
+  color: #fff;
+  font-family: system-ui;
+}
+
+.errorText {
+  color: #db0909c9;
+  font-family: ui-monospace;
+  text-indent: 50px;
+  font-size: 14px;
+}
+
+.circleNotCheck {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d9d9d9;
+}
+
+.circleCheck {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+  background: #2f6e82;
+}
+
+.inputText {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #d8c7c7;
+    background-color: #454444;
+    border: 1px solid #d8c7c7;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;
+    transition: border 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }

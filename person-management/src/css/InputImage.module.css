@@ -1,0 +1,66 @@
+.addImage {
+  border-radius: 50%;
+  background: #3c3a3a;
+  height: 185px;
+  width: 185px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+.imageDisabled {
+  border-radius: 50%;
+  background: #3c3a3a;
+  height: 185px;
+  width: 185px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.textFormation {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.inputImagePlus {
+  text-align: center;
+  color: #fff !important;
+  font-size: 70px !important;
+}
+
+.inputImageAddText {
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.inputImageChangeIcon {
+  text-align: center;
+  font-size: 25px !important;
+  color: #fff !important;
+  cursor: pointer;
+}
+
+.ImageDivPosition {
+  position: relative;
+  top: -45px;
+}
+
+@media only screen and (max-width: 575px) {
+  .ImageDivPosition {
+    position: relative;
+    top: 0px;
+  }
+}
+
+.errorText {
+  color: #db0909c9;
+  font-family: ui-monospace;
+  text-indent: 50px;
+  font-size: 14px;
+}
