@@ -8,8 +8,10 @@ namespace crud_ReactJs_Asp.Net.Controllers {
     [Route("[controller]")]
     public class PersonController : ControllerBase {
         private readonly IPersonService _personService;
-        public PersonController(IPersonService personService) {
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public PersonController(IPersonService personService, IWebHostEnvironment hostEnvironment) {
             _personService = personService;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -28,6 +30,17 @@ namespace crud_ReactJs_Asp.Net.Controllers {
         [HttpPost("create")]
         public async Task<Person> CreatePerson(Person person) {
             return await _personService.AddPerson(person);
+        }
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile) {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create)) {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
         }
     }
 }
