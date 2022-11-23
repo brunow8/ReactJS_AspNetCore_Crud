@@ -21,6 +21,9 @@ namespace crud_ReactJs_Asp.Net.Controllers {
                 if (persons == null) {
                     return NoContent();
                 }
+                foreach (var person in persons) {
+                    person.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, person.ImageName);
+                }
                 return Ok(persons);
             } catch (Exception ex) {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error trying to get all persons! Error: {ex.Message}");
