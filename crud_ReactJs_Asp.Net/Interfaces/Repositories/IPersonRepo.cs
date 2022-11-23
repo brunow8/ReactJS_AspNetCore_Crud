@@ -16,6 +16,7 @@ namespace crud_ReactJs_Asp.Net.Interfaces.Repositories {
         Task<Person> GetByIdAsync(Guid id);
         Task<Person[]> GetPersonsByName(string name);
         Task<Person> GetByNifAsync(string personNIF);
+        Task<Person> GetByEmailAsync(string personEmail);
         Task<bool> SaveChangesAsync();
     }
 }

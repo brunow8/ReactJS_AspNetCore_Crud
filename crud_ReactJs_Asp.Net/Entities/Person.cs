@@ -48,5 +48,7 @@ namespace crud_ReactJs_Asp.Net.Entities {
         public bool Error { get; set; } = false;
         [NotMapped]
         public string Message { get; set; } = "";
+        [NotMapped]
+        public string Field { get; set; } = "";
     }
 }

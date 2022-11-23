@@ -20,9 +20,17 @@ namespace crud_ReactJs_Asp.Net.Services {
         }
         public async Task<Person> AddPerson(Person person) {
             try {
-                if (await _personRepo.GetByIdAsync(person.Id) != null || await _personRepo.GetByNifAsync(person.NIF) != null) {
+                if (await _personRepo.GetByIdAsync(person.Id) != null) {
                     person.Error = true;
-                    person.Message = "There is already a person with the same information";
+                    person.Message = "There is already a person with the same information!";
+                }
+                if (await _personRepo.GetByNifAsync(person.NIF) != null) {
+                    person.Error = true;
+                    person.Message = "NIF is already in use!";
+                }
+                if (await _personRepo.GetByEmailAsync(person.Email) != null) {
+                    person.Error = true;
+                    person.Message = "Email is already in use!";
                 }
                 person.Error = false;
                 person.Message = "";
@@ -58,6 +66,10 @@ namespace crud_ReactJs_Asp.Net.Services {
 
         public Task<Person> GetPersonByNifAsync(string personNIF) {
             return _personRepo.GetByNifAsync(personNIF);
+        }
+
+        public Task<Person> GetPersonByEmailAsync(string personEmail) {
+            throw new NotImplementedException();
         }
     }
 }
