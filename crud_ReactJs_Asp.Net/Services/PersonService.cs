@@ -59,12 +59,16 @@ namespace crud_ReactJs_Asp.Net.Services {
                 }
                 return result;
             } catch {
-                throw new HttpException(500, "Error unexpected ocurred adding a person!");
+                throw new HttpException(500, "Error unexpected ocurred deleting a person!");
             }
         }
 
-        public Task<Person> GetPersonById(Guid personId) {
-            throw new NotImplementedException();
+        public async Task<Person> GetPersonById(Guid personId) {
+            try {
+                return await _personRepo.GetByIdAsync(personId);
+            } catch {
+                throw new HttpException(500, "Error unexpected ocurred when getting a person by id!");
+            }
         }
 
         public Task<Person[]> GetPersonsyName(string personName) {
