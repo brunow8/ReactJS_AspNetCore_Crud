@@ -4,12 +4,14 @@ using crud_ReactJs_Asp.Net.Interfaces.Repositories;
 using crud_ReactJs_Asp.Net.Interfaces.Services;
 using crud_ReactJs_Asp.Net.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddCors();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,9 +31,13 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+var env = builder.Environment.ContentRootPath;
+app.UseStaticFiles(new StaticFileOptions {
+    FileProvider = new PhysicalFileProvider(Path.Combine(env, "Images")),
+    RequestPath = "/Images"
+});
 app.UseHttpsRedirection();
-
+app.UseCors(options => options.WithOrigins("https://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 app.UseAuthorization();
 
 app.MapControllers();
