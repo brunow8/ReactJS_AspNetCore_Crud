@@ -23,14 +23,17 @@ namespace crud_ReactJs_Asp.Net.Services {
                 if (await _personRepo.GetByIdAsync(person.Id) != null) {
                     person.Error = true;
                     person.Message = "There is already a person with the same information!";
+                    person.Field = "id";
                 }
                 if (await _personRepo.GetByNifAsync(person.NIF) != null) {
                     person.Error = true;
                     person.Message = "NIF is already in use!";
+                    person.Field = "nif";
                 }
                 if (await _personRepo.GetByEmailAsync(person.Email) != null) {
                     person.Error = true;
                     person.Message = "Email is already in use!";
+                    person.Field = "email";
                 }
                 person.Error = false;
                 person.Message = "";
@@ -44,8 +47,20 @@ namespace crud_ReactJs_Asp.Net.Services {
             return person;
         }
 
-        public Task<bool> DeletePerson(Person person) {
-            throw new NotImplementedException();
+        public async Task<bool> DeletePerson(Person person) {
+            try {
+                bool result = false;
+                if (person is null) {
+                    return false;
+                }
+                _personRepo.Delete(person);
+                if (await _personRepo.SaveChangesAsync()) {
+                    result = true;
+                }
+                return result;
+            } catch {
+                throw new HttpException(500, "Error unexpected ocurred adding a person!");
+            }
         }
 
         public Task<Person> GetPersonById(Guid personId) {
