@@ -29,6 +29,7 @@ namespace crud_ReactJs_Asp.Net.Controllers {
 
         [HttpPost("create")]
         public async Task<Person> CreatePerson(Person person) {
+            person.ImageName = await SaveImage(person.ImageFile);
             return await _personService.AddPerson(person);
         }
 
