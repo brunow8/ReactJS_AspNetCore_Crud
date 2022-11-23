@@ -38,6 +38,12 @@ namespace crud_ReactJs_Asp.Net.Entities {
         [EmailAddress]
         public string Email { get; set; } = "";
 
+        [Required(ErrorMessage = "Photo is required")]
+        public string ImageName { get; set; } = "";
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+
         [NotMapped]
         public bool Error { get; set; } = false;
         [NotMapped]
