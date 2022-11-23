@@ -10,7 +10,6 @@ namespace crud_ReactJs_Asp.Net.Interfaces.Services {
         Task<Person> UpdatePerson(Person person);
         Task<bool> DeletePerson(Person person);
         Task<Person[]> GetAllPersons();
-        Task<Person[]> GetPersonsyName(string personName);
         Task<Person> GetPersonById(Guid personId);
         Task<Person> GetPersonByNifAsync(string personNIF);
         Task<Person> GetPersonByEmailAsync(string personEmail);

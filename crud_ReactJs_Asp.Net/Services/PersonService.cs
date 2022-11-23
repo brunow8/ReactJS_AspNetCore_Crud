@@ -70,16 +70,26 @@ namespace crud_ReactJs_Asp.Net.Services {
                 throw new HttpException(500, "Error unexpected ocurred when getting a person by id!");
             }
         }
-
-        public Task<Person[]> GetPersonsyName(string personName) {
-            throw new NotImplementedException();
-        }
-
         public Task<bool> SaveChangesAsync() {
             return _personRepo.SaveChangesAsync();
         }
-
-        public Task<Person> UpdatePerson(Person person) {
+        public async Task<Person> UpdatePerson(Person person) {
+            try {
+                Person personUpdated = new Person();
+                if(person is null) {
+                    personUpdated.Error = true;
+                    personUpdated.Message = "Person details not found!";
+                    personUpdated.Field = "id";
+                    return personUpdated;
+                }
+                _personRepo.Update(person);
+                if (await _personRepo.SaveChangesAsync()) {
+                    personUpdated = person;
+                }
+                return personUpdated;
+            } catch {
+                throw new HttpException(500, "Error unexpected ocurred when updating a person!");
+            }
             throw new NotImplementedException();
         }
 

@@ -36,14 +36,6 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Person[]> GetPersonsByName(string personName) {
-            IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.FirstName == personName);
-            return await query.ToArrayAsync();
-        }
-
         public async Task<Person> GetByNifAsync(string personNif) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
