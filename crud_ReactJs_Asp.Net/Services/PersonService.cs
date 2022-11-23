@@ -46,33 +46,6 @@ namespace crud_ReactJs_Asp.Net.Services {
             }
             return person;
         }
-
-        public async Task<bool> DeletePerson(Person person) {
-            try {
-                bool result = false;
-                if (person is null) {
-                    return false;
-                }
-                _personRepo.Delete(person);
-                if (await _personRepo.SaveChangesAsync()) {
-                    result = true;
-                }
-                return result;
-            } catch {
-                throw new HttpException(500, "Error unexpected ocurred deleting a person!");
-            }
-        }
-
-        public async Task<Person> GetPersonById(Guid personId) {
-            try {
-                return await _personRepo.GetByIdAsync(personId);
-            } catch {
-                throw new HttpException(500, "Error unexpected ocurred when getting a person by id!");
-            }
-        }
-        public Task<bool> SaveChangesAsync() {
-            return _personRepo.SaveChangesAsync();
-        }
         public async Task<Person> UpdatePerson(Person person) {
             try {
                 Person personUpdated = new Person();
@@ -92,13 +65,36 @@ namespace crud_ReactJs_Asp.Net.Services {
             }
             throw new NotImplementedException();
         }
-
+        public async Task<bool> DeletePerson(Person person) {
+            try {
+                bool result = false;
+                if (person is null) {
+                    return false;
+                }
+                _personRepo.Delete(person);
+                if (await _personRepo.SaveChangesAsync()) {
+                    result = true;
+                }
+                return result;
+            } catch {
+                throw new HttpException(500, "Error unexpected ocurred deleting a person!");
+            }
+        }
+        public async Task<Person> GetPersonById(Guid personId) {
+            try {
+                return await _personRepo.GetByIdAsync(personId);
+            } catch {
+                throw new HttpException(500, "Error unexpected ocurred when getting a person by id!");
+            }
+        }
+        public Task<bool> SaveChangesAsync() {
+            return _personRepo.SaveChangesAsync();
+        }
         public Task<Person> GetPersonByNifAsync(string personNIF) {
             return _personRepo.GetByNifAsync(personNIF);
         }
-
         public Task<Person> GetPersonByEmailAsync(string personEmail) {
-            throw new NotImplementedException();
+            return _personRepo.GetByEmailAsync(personEmail);
         }
     }
 }

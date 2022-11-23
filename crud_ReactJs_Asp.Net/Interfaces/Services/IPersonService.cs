@@ -13,8 +13,6 @@ namespace crud_ReactJs_Asp.Net.Interfaces.Services {
         Task<Person> GetPersonById(Guid personId);
         Task<Person> GetPersonByNifAsync(string personNIF);
         Task<Person> GetPersonByEmailAsync(string personEmail);
-
-
         Task<bool> SaveChangesAsync();
     }
 }
