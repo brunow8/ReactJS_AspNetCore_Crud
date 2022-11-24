@@ -37,6 +37,7 @@ namespace crud_ReactJs_Asp.Net.Services {
                 }
                 person.Error = false;
                 person.Message = "";
+                person.Id = new Guid();
                 _personRepo.Add(person);
                 if (await _personRepo.SaveChangesAsync()) {
                     return person;
