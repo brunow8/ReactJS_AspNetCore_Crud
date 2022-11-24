@@ -1,9 +1,9 @@
 ﻿using crud_ReactJs_Asp.Net.Data.Context;
 using crud_ReactJs_Asp.Net.Entities;
-using crud_ReactJs_Asp.Net.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace crud_ReactJs_Asp.Net.Data.Repositories {
+namespace crud_ReactJs_Asp.Net.Data.Repositories
+{
     public class PersonRepo : IPersonRepo {
         //As we can see and with the explanation previously given in the IPersonRepo interface.cs,
         //here are implemented the functions declared there making it possible to connect to the database either to recover data, replacing or even deleting it.
@@ -28,31 +28,31 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
                          .OrderBy(person => person.Id);
             return await query.ToArrayAsync();
         }
-        public async Task<Person> GetByIdAsync(Guid id) {
+        public async Task<Person?> GetByIdAsync(long id) {
             IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.Id == id);
-            return await query.FirstOrDefaultAsync();
+            query = from p in query
+                    where p.Id == id
+                    select p;
+            return await query.FirstOrDefaultAsync() ?? null;
         }
 
-        public async Task<Person[]> GetPersonsByName(string personName) {
-            IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.FirstName == personName);
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<Person> GetByNifAsync(string personNif) {
+        public async Task<Person?> GetByNifAsync(string personNif) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
                          .OrderBy(person => person.Id)
                          .Where(person => person.NIF == personNif);
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync() ?? null;
+        }
+        public async Task<Person?> GetByEmailAsync(string personEmail) {
+            IQueryable<Person> query = _context.Person;
+            query = query.AsNoTracking()
+                         .OrderBy(person => person.Id)
+                         .Where(person => person.Email == personEmail);
+            return await query.FirstOrDefaultAsync() ?? null;
         }
         public async Task<bool> SaveChangesAsync() {
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

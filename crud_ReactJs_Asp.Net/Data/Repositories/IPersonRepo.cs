@@ -1,7 +1,9 @@
 ﻿using crud_ReactJs_Asp.Net.Entities;
 
-namespace crud_ReactJs_Asp.Net.Interfaces.Repositories {
-    public interface IPersonRepo {
+namespace crud_ReactJs_Asp.Net.Data.Repositories
+{
+    public interface IPersonRepo
+    {
 
         /*This interface is created based on the connection with the database and the type of functions that will be needed for the operation of the application, ie as we can see below we have 3 void functions that are limited to making
         the user request without returning anything in return (Add, Update, Delete) and soon after we have some functions that will have return by the database such as GetByIdAsync that will return person by their Id as such applies to Nif.
@@ -13,9 +15,9 @@ namespace crud_ReactJs_Asp.Net.Interfaces.Repositories {
         void Update(Person person);
         void Delete(Person person);
         Task<Person[]> GetAllAsync();
-        Task<Person> GetByIdAsync(Guid id);
-        Task<Person[]> GetPersonsByName(string name);
-        Task<Person> GetByNifAsync(string personNIF);
+        Task<Person?> GetByIdAsync(long id);
+        Task<Person?> GetByNifAsync(string personNIF);
+        Task<Person?> GetByEmailAsync(string personEmail);
         Task<bool> SaveChangesAsync();
     }
 }
