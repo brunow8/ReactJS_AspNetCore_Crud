@@ -1,9 +1,9 @@
 ﻿using crud_ReactJs_Asp.Net.Data.Context;
 using crud_ReactJs_Asp.Net.Entities;
-using crud_ReactJs_Asp.Net.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace crud_ReactJs_Asp.Net.Data.Repositories {
+namespace crud_ReactJs_Asp.Net.Data.Repositories
+{
     public class PersonRepo : IPersonRepo {
         //As we can see and with the explanation previously given in the IPersonRepo interface.cs,
         //here are implemented the functions declared there making it possible to connect to the database either to recover data, replacing or even deleting it.

@@ -1,7 +1,5 @@
 using crud_ReactJs_Asp.Net.Data.Context;
 using crud_ReactJs_Asp.Net.Data.Repositories;
-using crud_ReactJs_Asp.Net.Interfaces.Repositories;
-using crud_ReactJs_Asp.Net.Interfaces.Services;
 using crud_ReactJs_Asp.Net.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;

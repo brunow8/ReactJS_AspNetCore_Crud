@@ -1,9 +1,10 @@
 ﻿using crud_ReactJs_Asp.Net.Entities;
-using crud_ReactJs_Asp.Net.Interfaces.Services;
+using crud_ReactJs_Asp.Net.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace crud_ReactJs_Asp.Net.Controllers {
+namespace crud_ReactJs_Asp.Net.Controllers
+{
     [ApiController]
     [Route("[controller]")]
     public class PersonController : ControllerBase {
