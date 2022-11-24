@@ -36,6 +36,15 @@ namespace crud_ReactJs_Asp.Net.Controllers {
             return await _personService.AddPerson(person);
         }
 
+        [HttpPut]
+        public async Task<Person> UpddatePerson(Person person) {
+            if(person.ImageFile != null) {
+                DeleteImage(person.ImageName);
+                person.ImageName = await SaveImage(person.ImageFile);
+            }
+            return await _personService.UpdatePerson(person);
+        }
+
         [NonAction]
         public async Task<string> SaveImage(IFormFile imageFile) {
             string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
