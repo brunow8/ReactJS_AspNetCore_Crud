@@ -21,9 +21,9 @@ namespace crud_ReactJs_Asp.Net.Migrations
 
             modelBuilder.Entity("crud_ReactJs_Asp.Net.Entities.Person", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Address")
                         .IsRequired()

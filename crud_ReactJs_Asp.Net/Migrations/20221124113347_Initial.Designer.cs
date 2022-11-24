@@ -11,7 +11,7 @@ using crud_ReactJs_Asp.Net.Data.Context;
 namespace crud_ReactJs_Asp.Net.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221115193256_Initial")]
+    [Migration("20221124113347_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,9 @@ namespace crud_ReactJs_Asp.Net.Migrations
 
             modelBuilder.Entity("crud_ReactJs_Asp.Net.Entities.Person", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -48,6 +48,10 @@ namespace crud_ReactJs_Asp.Net.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
