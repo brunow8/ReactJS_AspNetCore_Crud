@@ -30,14 +30,14 @@ namespace crud_ReactJs_Asp.Net.Controllers {
             }
         }
 
-        [HttpPost("create")]
-        public async Task<Person> CreatePerson(Person person) {
+        [HttpPost]
+        public async Task<Person> CreatePerson([FromForm] Person person) {
             person.ImageName = await SaveImage(person.ImageFile);
             return await _personService.AddPerson(person);
         }
 
         [HttpPut]
-        public async Task<Person> UpddatePerson(Person person) {
+        public async Task<Person> UpddatePerson([FromForm] Person person) {
             if(person.ImageFile != null) {
                 DeleteImage(person.ImageName);
                 person.ImageName = await SaveImage(person.ImageFile);
