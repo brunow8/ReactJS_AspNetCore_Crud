@@ -7,12 +7,12 @@ namespace crud_ReactJs_Asp.Net.Interfaces.Services {
          * In a simple way, the functions here declared will be used in PersonService.cs where are implemented and with the injection of the interface responsible to the database connection give the user some response.
          */
         Task<Person> AddPerson(Person person);
-        Task<Person> UpdatePerson(Person person);
-        Task<bool> DeletePerson(Person person);
+        Task<bool> DeletePerson(long personId);
         Task<Person[]> GetAllPersons();
+        Task<Person?> GetPersonByEmailAsync(string personEmail);
         Task<Person?> GetPersonById(long personId);
         Task<Person?> GetPersonByNifAsync(string personNIF);
-        Task<Person?> GetPersonByEmailAsync(string personEmail);
         Task<bool> SaveChangesAsync();
+        Task<Person> UpdatePerson(Person person);
     }
 }

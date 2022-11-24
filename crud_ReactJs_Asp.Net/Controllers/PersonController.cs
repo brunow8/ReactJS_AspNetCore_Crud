@@ -38,7 +38,7 @@ namespace crud_ReactJs_Asp.Net.Controllers {
 
         [HttpPut]
         public async Task<Person> UpddatePerson([FromForm] Person person) {
-            if(person.ImageFile != null) {
+            if (person.ImageFile != null) {
                 DeleteImage(person.ImageName);
                 person.ImageName = await SaveImage(person.ImageFile);
             }
@@ -46,9 +46,8 @@ namespace crud_ReactJs_Asp.Net.Controllers {
         }
 
         [HttpDelete]
-        public async Task<bool> DeletePerson(Person person) {
-            DeleteImage(person.ImageName);
-            return await _personService.DeletePerson(person);
+        public async Task<bool> DeletePerson(long personId) {
+            return await _personService.DeletePerson(personId);
         }
 
         [NonAction]

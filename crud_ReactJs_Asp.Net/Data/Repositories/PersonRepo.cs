@@ -13,8 +13,6 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
             _context = context;
         }
         public void Add(Person person) {
-            IQueryable<Person> query = _context.Person;
-            person.Id = query.Count() + 1;
             _context.Add(person);
         }
         public void Update(Person person) {

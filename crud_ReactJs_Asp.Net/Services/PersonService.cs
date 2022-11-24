@@ -49,7 +49,7 @@ namespace crud_ReactJs_Asp.Net.Services {
         public async Task<Person> UpdatePerson(Person person) {
             try {
                 Person personUpdated = new Person();
-                if(person is null) {
+                if (person is null) {
                     personUpdated.Error = true;
                     personUpdated.Message = "Person details not found!";
                     personUpdated.Field = "id";
@@ -65,9 +65,10 @@ namespace crud_ReactJs_Asp.Net.Services {
             }
             throw new NotImplementedException();
         }
-        public async Task<bool> DeletePerson(Person person) {
+        public async Task<bool> DeletePerson(long personId) {
             try {
                 bool result = false;
+                var person = await GetPersonById(personId);
                 if (person is null) {
                     return false;
                 }
