@@ -20,7 +20,7 @@ namespace crud_ReactJs_Asp.Net.Services {
         }
         public async Task<Person> AddPerson(Person person) {
             try {
-                if (await _personRepo.GetByIdAsync(person.Id) != null) {
+                if (person.Id != 0) {
                     person.Error = true;
                     person.Message = "There is already a person with the same information!";
                     person.Field = "id";
@@ -37,7 +37,6 @@ namespace crud_ReactJs_Asp.Net.Services {
                 }
                 person.Error = false;
                 person.Message = "";
-                person.Id = new Guid();
                 _personRepo.Add(person);
                 if (await _personRepo.SaveChangesAsync()) {
                     return person;
@@ -81,7 +80,7 @@ namespace crud_ReactJs_Asp.Net.Services {
                 throw new HttpException(500, "Error unexpected ocurred deleting a person!");
             }
         }
-        public async Task<Person> GetPersonById(Guid personId) {
+        public async Task<Person?> GetPersonById(long personId) {
             try {
                 return await _personRepo.GetByIdAsync(personId);
             } catch {
@@ -91,10 +90,10 @@ namespace crud_ReactJs_Asp.Net.Services {
         public Task<bool> SaveChangesAsync() {
             return _personRepo.SaveChangesAsync();
         }
-        public Task<Person> GetPersonByNifAsync(string personNIF) {
+        public Task<Person?> GetPersonByNifAsync(string personNIF) {
             return _personRepo.GetByNifAsync(personNIF);
         }
-        public Task<Person> GetPersonByEmailAsync(string personEmail) {
+        public Task<Person?> GetPersonByEmailAsync(string personEmail) {
             return _personRepo.GetByEmailAsync(personEmail);
         }
     }

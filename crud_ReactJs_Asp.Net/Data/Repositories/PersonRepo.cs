@@ -13,6 +13,8 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
             _context = context;
         }
         public void Add(Person person) {
+            IQueryable<Person> query = _context.Person;
+            person.Id = query.Count() + 1;
             _context.Add(person);
         }
         public void Update(Person person) {
@@ -28,27 +30,27 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
                          .OrderBy(person => person.Id);
             return await query.ToArrayAsync();
         }
-        public async Task<Person> GetByIdAsync(Guid id) {
+        public async Task<Person?> GetByIdAsync(long id) {
             IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.Id == id);
-            return await query.FirstOrDefaultAsync();
+            query = from p in query
+                    where p.Id == id
+                    select p;
+            return await query.FirstOrDefaultAsync() ?? null;
         }
 
-        public async Task<Person> GetByNifAsync(string personNif) {
+        public async Task<Person?> GetByNifAsync(string personNif) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
                          .OrderBy(person => person.Id)
                          .Where(person => person.NIF == personNif);
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync() ?? null;
         }
-        public async Task<Person> GetByEmailAsync(string personEmail) {
+        public async Task<Person?> GetByEmailAsync(string personEmail) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
                          .OrderBy(person => person.Id)
                          .Where(person => person.Email == personEmail);
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync() ?? null;
         }
         public async Task<bool> SaveChangesAsync() {
             return await _context.SaveChangesAsync() > 0;

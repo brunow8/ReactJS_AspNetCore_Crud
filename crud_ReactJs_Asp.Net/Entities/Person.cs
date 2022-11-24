@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LinqToDB.Mapping;
 
 namespace crud_ReactJs_Asp.Net.Entities {
     public class Person {
-        [Required]
-        public Guid Id { get; set; }
+        [LinqToDB.Mapping.PrimaryKey, Identity]
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "First Name should be minimum 3 characters and a maximum of 50 characters")]
@@ -43,14 +44,17 @@ namespace crud_ReactJs_Asp.Net.Entities {
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        [NotMapped]
-        public string ImageSrc { get; set; } = "";
+
+
+
 
         [NotMapped]
-        public bool Error { get; set; } = false;
+        public string? ImageSrc { get; set; } = "";
         [NotMapped]
-        public string Message { get; set; } = "";
+        public bool? Error { get; set; } = false;
         [NotMapped]
-        public string Field { get; set; } = "";
+        public string? Message { get; set; } = "";
+        [NotMapped]
+        public string? Field { get; set; } = "";
     }
 }
