@@ -46,5 +46,13 @@ namespace crud_ReactJs_Asp.Net.Controllers {
             }
             return imageName;
         }
+
+        [NonAction]
+        public void DeleteImage(string imageName) {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath)) {
+                System.IO.File.Delete(imagePath);
+            }
+        }
     }
 }
