@@ -3,11 +3,7 @@ import style from "./../../css/InputImage.module.css";
 
 const InputImage = (props) => {
   const HandleFileSelection = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].name !== "") {
-        props.changePhotoName(event.target.files[0].name);
-      }
-    }
+        props.onHandlerInputImage(event);
   };
 
   const fileOpenFolder = () => {
@@ -21,7 +17,7 @@ const InputImage = (props) => {
       >
         <div>
           <img
-            src={require(`./../../images/${props.src}`)}
+            src={props.src}
             className={`${style.imageDisabled}`}
             alt="person"
           />
@@ -63,7 +59,7 @@ const InputImage = (props) => {
             />
             <div onClick={fileOpenFolder}>
               <img
-                src={require(`./../../images/${props.src}`)}
+                src={props.src}
                 className={`${style.addImage}`}
                 alt="person"
               />

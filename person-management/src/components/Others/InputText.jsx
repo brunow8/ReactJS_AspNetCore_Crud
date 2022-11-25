@@ -19,7 +19,7 @@ const InputText = (props) => {
   }
 
   const onHandlerInput = (e) => {
-    if (!props.disabled) props.onHandlerInput(e.target.value, props.name);
+    if (!props.disabled) props.onHandlerInput(e);
   };
 
   return (

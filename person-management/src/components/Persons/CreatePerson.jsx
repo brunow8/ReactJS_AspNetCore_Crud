@@ -4,10 +4,11 @@ import InputImage from "../Others/InputImage";
 import InputText from "../Others/InputText";
 import validation from "../Others/Validation";
 import GoBackArrow from "../Shared/GoBackArrow";
-import style from './../../css/AllPersons.module.css';
-import swal from 'sweetalert2';
+import style from "./../../css/AllPersons.module.css";
+import swal from "sweetalert2";
 const CreatePerson = (props) => {
   const [newPerson, setNewPerson] = useState({
+    id: 0,
     firstName: "",
     lastName: "",
     birthday: "",
@@ -18,13 +19,28 @@ const CreatePerson = (props) => {
     streetAddress: "",
     email: "",
     photo: "",
+    imageSrc: "",
+    imageFile: null,
   });
   const [errors, setErrors] = useState({});
 
-  const changePhotoName = (imageName) => {
-    setNewPerson((prevState) => {
-      return { ...prevState, photo: imageName };
-    });
+  const onHandlerInputImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      if (e.target.files[0].name !== "") {
+        let imageFile = e.target.files[0];
+        let imageName = e.target.files[0].name;
+        const reader = new FileReader();
+        reader.onload = (x) => {
+          setNewPerson({
+            ...newPerson,
+            imageFile: imageFile,
+            imageSrc: x.target.result,
+            photo: imageName
+          });
+        };
+        reader.readAsDataURL(imageFile);
+      }
+    }
   };
 
   const handlerGender = (gender) => {
@@ -33,73 +49,64 @@ const CreatePerson = (props) => {
     });
   };
 
-  const onHandlerInput = (value, input) => {
-    if (input === "firstName") {
-      setNewPerson((prevState) => {
-        return { ...prevState, firstName: value };
-      });
-    } else if (input === "lastName") {
-      setNewPerson((prevState) => {
-        return { ...prevState, lastName: value };
-      });
-    } else if (input === "birthday") {
-      setNewPerson((prevState) => {
-        return { ...prevState, birthday: value };
-      });
-    } else if (input === "nif") {
-      setNewPerson((prevState) => {
-        return { ...prevState, nif: value };
-      });
-    } else if (input === "cellphone") {
-      setNewPerson((prevState) => {
-        return { ...prevState, cellphone: value };
-      });
-    } else if (input === "zipcode") {
-      setNewPerson((prevState) => {
-        return { ...prevState, zipcode: value };
-      });
-    } else if (input === "streetAddress") {
-      setNewPerson((prevState) => {
-        return { ...prevState, streetAddress: value };
-      });
-    } else if (input === "email") {
-      setNewPerson((prevState) => {
-        return { ...prevState, email: value };
-      });
-    }
+  const onHandlerInput = (e) => {
+    setNewPerson({
+      ...newPerson,
+      [e.target.name]: e.target.value
+    });
   };
 
   const submitNewPerson = (e) => {
-    e.preventDefault();
     setErrors(validation(newPerson));
     if (errors.hasError === false) {
-      //API CALL TO ADD THE NEW PERSON TO THE DATABASE 
-      setNewPerson({
-        firstName: "",
-        lastName: "",
-        birthday: "",
-        gender: "",
-        nif: "",
-        cellphone: "",
-        zipcode: "",
-        streetAddress: "",
-        email: "",
-        photo: "",
-      });
-      props.GoBack("createPerson");
-      swal.fire("Success!", "Person created with success!", "success");
-
-    } else {
-      //DISPLAY ERRORS TO THE USER AND PERSON NOT CREATED
-      console.log("You have errors!");
+      const formData = new FormData();
+      formData.append('id', newPerson.id);
+      formData.append('firstName', newPerson.firstName);
+      formData.append('lastName', newPerson.lastName);
+      formData.append('birthday', "13/03/1999");
+      formData.append('gender', newPerson.gender);
+      formData.append('nif', newPerson.nif);
+      formData.append('cellphone', newPerson.cellphone);
+      formData.append('zipcode', newPerson.zipcode);
+      formData.append('address', newPerson.streetAddress);
+      formData.append('email', newPerson.email);
+      formData.append('imageName', newPerson.photo);
+      formData.append('imageSrc', newPerson.imageSrc);
+      formData.append('imageFile', newPerson.imageFile);
+      props.personAPI().create(formData).then(res => {
+        if(res.data.error === true){
+          setErrors({
+            ...errors,
+            [res.data.field]: res.data.message
+          })
+        }else{
+          setNewPerson({
+          id: 0,
+          firstName: "",
+          lastName: "",
+          birthday: "",
+          gender: "",
+          nif: "",
+          cellphone: "",
+          zipcode: "",
+          streetAddress: "",
+          email: "",
+          photo: "",
+          imageSrc: "",
+          imageFile: null
+        });
+        swal.fire("Success!", "Person created with success!", "success");
+        props.GoBack("createPerson");
+        }
+      })
     }
   };
   return (
     <>
       <GoBackArrow location={"createPerson"} createPerson={props.GoBack} />
       <InputImage
-        src={newPerson.photo}
-        changePhotoName={changePhotoName}
+        src={newPerson.imageSrc}
+        onHandlerInputImage={onHandlerInputImage}
         errors={errors.photo}
         disabled={false}
       />
@@ -132,7 +139,6 @@ const CreatePerson = (props) => {
         onHandlerInput={onHandlerInput}
         errors={errors.birthday}
         placeholder={""}
-
       />
       <GenderSelectBox
         gender={newPerson.gender}
@@ -190,7 +196,10 @@ const CreatePerson = (props) => {
         placeholder={"Ex: example@gmail.com"}
       />
       <div className="col-12 d-flex justify-content-center">
-        <div className={`${style.createPersonButton}`} onClick={submitNewPerson}>
+        <div
+          className={`${style.createPersonButton}`}
+          onClick={submitNewPerson}
+        >
           Create Person
         </div>
       </div>

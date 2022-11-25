@@ -4,7 +4,7 @@ using LinqToDB.Mapping;
 
 namespace crud_ReactJs_Asp.Net.Entities {
     public class Person {
-        [LinqToDB.Mapping.PrimaryKey, Identity]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public long Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]

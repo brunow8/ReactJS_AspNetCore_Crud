@@ -8,6 +8,7 @@ import CreatePerson from "./components/Persons/CreatePerson";
 import ViewPerson from "./components/Persons/ViewPerson";
 import EditPerson from "./components/Persons/EditPerson";
 import Swal from 'sweetalert2';
+import axios from 'axios'
 
 const App = () => {
 
@@ -75,6 +76,15 @@ const App = () => {
       photo: "personImage.jfif",
     },
   ]);
+
+  const personAPI = (url = 'https://localhost:7171/Person') => {
+    return{
+      fetchAll: () => axios.get(url),
+      create: newPerson => axios.post(url + "/createPerson", newPerson),
+      update: updatePerson => axios.put(url, updatePerson),
+      delete: id => axios.delete(url + id)
+    }
+  }
   //Function that will receive the location of the user in the application and that 
   //will close that respective component and change it to the home page
   const GoBack = (data) => {
@@ -193,7 +203,7 @@ const App = () => {
   } else if (appSettings.allPersons) {
     content = <AllPersons GoBack={GoBack} initialPersons={initialPersons} personView={personView} personEdit={personEdit} />;
   } else if (appSettings.createPerson) {
-    content = <CreatePerson GoBack={GoBack} />;
+    content = <CreatePerson GoBack={GoBack} personAPI={personAPI}/>;
   } else if (appSettings.viewPerson) {
     content = <ViewPerson GoBack={GoBack} personDetails={personDetails} />
   } else if (appSettings.editPerson) {

@@ -35,7 +35,7 @@ app.UseStaticFiles(new StaticFileOptions {
     RequestPath = "/Images"
 });
 app.UseHttpsRedirection();
-app.UseCors(options => options.WithOrigins("https://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();
