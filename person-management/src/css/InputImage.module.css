@@ -1,6 +1,6 @@
 .addImage {
   border-radius: 50%;
-  background: #3c3a3a;
+  background: #eaeaea;
   height: 185px;
   width: 185px;
   display: grid;
@@ -27,7 +27,7 @@
 
 .inputImagePlus {
   text-align: center;
-  color: #fff !important;
+  color: #292929 !important;
   font-size: 70px !important;
 }
 
@@ -36,7 +36,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  color: #292929;
 }
 
 .inputImageChangeIcon {

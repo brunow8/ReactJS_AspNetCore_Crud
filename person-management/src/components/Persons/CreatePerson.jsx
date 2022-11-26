@@ -141,7 +141,7 @@ const CreatePerson = (props) => {
         value={newPerson.birthday}
         name={"birthday"}
         labelName={"Date of Birth"}
-        type={"date"}
+        type={"datetime-local"}
         disabled={false}
         onHandlerInput={onHandlerInput}
         errors={errors.birthday}
