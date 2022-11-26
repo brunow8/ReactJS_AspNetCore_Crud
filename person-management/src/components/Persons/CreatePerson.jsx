@@ -83,7 +83,6 @@ const CreatePerson = (props) => {
         .then((res) => {
           if (res.data.error === true) {
             setErrors({
-              ...errors,
               [res.data.field]: res.data.message,
             });
           } else {

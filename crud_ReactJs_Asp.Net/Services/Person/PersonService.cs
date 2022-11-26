@@ -35,14 +35,14 @@ namespace crud_ReactJs_Asp.Net.Services
                     person.Field = "id";
                     return person;
                 }
-                if (await _personRepo.GetByNifAsync(person) != null)
+                if (await _personRepo.GetByNifAsync(person) is not null)
                 {
                     person.Error = true;
                     person.Message = "NIF is already in use!";
                     person.Field = "nif";
                     return person;
                 }
-                if (await _personRepo.GetByEmailAsync(person) != null)
+                if (await _personRepo.GetByEmailAsync(person) is not null)
                 {
                     person.Error = true;
                     person.Message = "Email is already in use!";

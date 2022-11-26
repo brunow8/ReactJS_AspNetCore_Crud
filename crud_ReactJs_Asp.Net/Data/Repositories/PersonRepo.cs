@@ -2,8 +2,7 @@
 using crud_ReactJs_Asp.Net.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace crud_ReactJs_Asp.Net.Data.Repositories
-{
+namespace crud_ReactJs_Asp.Net.Data.Repositories {
     public class PersonRepo : IPersonRepo {
         //As we can see and with the explanation previously given in the IPersonRepo interface.cs,
         //here are implemented the functions declared there making it possible to connect to the database either to recover data, replacing or even deleting it.
@@ -38,28 +37,41 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories
 
         public async Task<Person?> GetByNifAsync(Person person) {
             IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(p => p.Id)
-                         .Where(p => p.Id == person.Id);
-            if(query.FirstOrDefault().NIF == person.NIF) {
-                return null;
+            if (person.Id != 0) {
+                query = query.AsNoTracking()
+                             .OrderBy(p => p.Id)
+                             .Where(p => p.Id == person.Id);
+                if (query.FirstOrDefault() is not null && query.FirstOrDefault().NIF == person.NIF) {
+                    return null;
+                }
+                query = query.AsNoTracking()
+                             .OrderBy(p => p.Id)
+                             .Where(p => p.NIF == person.NIF);
+            } else {
+                query = query.AsNoTracking()
+                                 .OrderBy(p => p.Id)
+                                 .Where(p => p.NIF == person.NIF);
             }
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.NIF == person.NIF);
             return await query.FirstOrDefaultAsync() ?? null;
         }
         public async Task<Person?> GetByEmailAsync(Person person) {
             IQueryable<Person> query = _context.Person;
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.Id == person.Id);
-            if (query.FirstOrDefault().Email == person.Email) {
-                return null;
+            if (person.Id != 0) {
+                query = query.AsNoTracking()
+                             .OrderBy(p => p.Id)
+                             .Where(p => p.Id == person.Id);
+                if (query.FirstOrDefault() is not null && query.FirstOrDefault().Email == person.Email) {
+                    return null;
+                }
+                query = query.AsNoTracking()
+                             .OrderBy(p => p.Id)
+                             .Where(p => p.Email == person.Email);
+            } else {
+                query = query.AsNoTracking()
+                             .OrderBy(p => p.Id)
+                             .Where(p => p.Email == person.Email);
+                var email = query.FirstOrDefault().Email;
             }
-            query = query.AsNoTracking()
-                         .OrderBy(person => person.Id)
-                         .Where(person => person.Email == person.Email);
             return await query.FirstOrDefaultAsync() ?? null;
         }
         public async Task<bool> SaveChangesAsync() {
