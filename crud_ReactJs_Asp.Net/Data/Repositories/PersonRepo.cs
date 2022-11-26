@@ -36,18 +36,30 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories
             return await query.FirstOrDefaultAsync() ?? null;
         }
 
-        public async Task<Person?> GetByNifAsync(string personNif) {
+        public async Task<Person?> GetByNifAsync(Person person) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
+                         .OrderBy(p => p.Id)
+                         .Where(p => p.Id == person.Id);
+            if(query.FirstOrDefault().NIF == person.NIF) {
+                return null;
+            }
+            query = query.AsNoTracking()
                          .OrderBy(person => person.Id)
-                         .Where(person => person.NIF == personNif);
+                         .Where(person => person.NIF == person.NIF);
             return await query.FirstOrDefaultAsync() ?? null;
         }
-        public async Task<Person?> GetByEmailAsync(string personEmail) {
+        public async Task<Person?> GetByEmailAsync(Person person) {
             IQueryable<Person> query = _context.Person;
             query = query.AsNoTracking()
                          .OrderBy(person => person.Id)
-                         .Where(person => person.Email == personEmail);
+                         .Where(person => person.Id == person.Id);
+            if (query.FirstOrDefault().Email == person.Email) {
+                return null;
+            }
+            query = query.AsNoTracking()
+                         .OrderBy(person => person.Id)
+                         .Where(person => person.Email == person.Email);
             return await query.FirstOrDefaultAsync() ?? null;
         }
         public async Task<bool> SaveChangesAsync() {

@@ -16,8 +16,8 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories
         void Delete(Person person);
         Task<Person[]> GetAllAsync();
         Task<Person?> GetByIdAsync(long id);
-        Task<Person?> GetByNifAsync(string personNIF);
-        Task<Person?> GetByEmailAsync(string personEmail);
+        Task<Person?> GetByNifAsync(Person person);
+        Task<Person?> GetByEmailAsync(Person person);
         Task<bool> SaveChangesAsync();
     }
 }

@@ -87,6 +87,7 @@ const CreatePerson = (props) => {
     setErrors(validation(personToUpdate));
     if (errors.hasError === false) {
       setLoading(true);
+      setErrors({});
       const formData = new FormData();
       formData.append("id", personToUpdate.id);
       formData.append("firstName", personToUpdate.firstName);
@@ -107,7 +108,6 @@ const CreatePerson = (props) => {
         .then((res) => {
           if (res.data.error === true) {
             setErrors({
-              ...errors,
               [res.data.field]: res.data.message,
             });
           } else {

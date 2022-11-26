@@ -35,14 +35,14 @@ namespace crud_ReactJs_Asp.Net.Services
                     person.Field = "id";
                     return person;
                 }
-                if (await _personRepo.GetByNifAsync(person.NIF) != null)
+                if (await _personRepo.GetByNifAsync(person) != null)
                 {
                     person.Error = true;
                     person.Message = "NIF is already in use!";
                     person.Field = "nif";
                     return person;
                 }
-                if (await _personRepo.GetByEmailAsync(person.Email) != null)
+                if (await _personRepo.GetByEmailAsync(person) != null)
                 {
                     person.Error = true;
                     person.Message = "Email is already in use!";
@@ -73,12 +73,24 @@ namespace crud_ReactJs_Asp.Net.Services
                     personUpdated.Field = "id";
                     return personUpdated;
                 }
+                if (await _personRepo.GetByNifAsync(person) is not null) {
+                    person.Error = true;
+                    person.Message = "NIF is already in use!";
+                    person.Field = "nif";
+                    return person;
+                }
+                if (await _personRepo.GetByEmailAsync(person) is not null) {
+                    person.Error = true;
+                    person.Message = "Email is already in use!";
+                    person.Field = "email";
+                    return person;
+                }
                 _personRepo.Update(person);
                 if (await _personRepo.SaveChangesAsync())
                 {
-                    personUpdated = person;
+                    return person;
                 }
-                return personUpdated;
+                return person;
             }
             catch
             {
@@ -123,13 +135,13 @@ namespace crud_ReactJs_Asp.Net.Services
         {
             return _personRepo.SaveChangesAsync();
         }
-        public Task<Person?> GetPersonByNifAsync(string personNIF)
+        public Task<Person?> GetPersonByNifAsync(Person person)
         {
-            return _personRepo.GetByNifAsync(personNIF);
+            return _personRepo.GetByNifAsync(person);
         }
-        public Task<Person?> GetPersonByEmailAsync(string personEmail)
+        public Task<Person?> GetPersonByEmailAsync(Person person)
         {
-            return _personRepo.GetByEmailAsync(personEmail);
+            return _personRepo.GetByEmailAsync(person);
         }
     }
 }
