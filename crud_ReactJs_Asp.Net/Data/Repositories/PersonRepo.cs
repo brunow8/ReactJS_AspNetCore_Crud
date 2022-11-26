@@ -70,7 +70,6 @@ namespace crud_ReactJs_Asp.Net.Data.Repositories {
                 query = query.AsNoTracking()
                              .OrderBy(p => p.Id)
                              .Where(p => p.Email == person.Email);
-                var email = query.FirstOrDefault().Email;
             }
             return await query.FirstOrDefaultAsync() ?? null;
         }
