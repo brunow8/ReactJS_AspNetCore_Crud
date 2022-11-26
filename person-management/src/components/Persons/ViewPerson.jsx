@@ -25,7 +25,7 @@ const ViewPerson = (props) => {
         name={"birthday"}
         value={props.personDetails.birthday}
         labelName={"Date of Birth"}
-        type={"text"}
+        type={"datetime-local"}
         disabled={true}
       />
       <GenderSelectBox gender={props.personDetails.gender} disabled={true} />

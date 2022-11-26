@@ -16,8 +16,8 @@ const CreatePerson = (props) => {
     gender: "",
     nif: "",
     cellphone: "",
-    zipcode: "",
-    streetAddress: "",
+    zipCode: "",
+    address: "",
     email: "",
     photo: "",
     imageSrc: "",
@@ -71,8 +71,8 @@ const CreatePerson = (props) => {
       formData.append("gender", newPerson.gender);
       formData.append("nif", newPerson.nif);
       formData.append("cellphone", newPerson.cellphone);
-      formData.append("zipcode", newPerson.zipcode);
-      formData.append("address", newPerson.streetAddress);
+      formData.append("zipcode", newPerson.zipCode);
+      formData.append("address", newPerson.address);
       formData.append("email", newPerson.email);
       formData.append("imageName", newPerson.photo);
       formData.append("imageSrc", newPerson.imageSrc);
@@ -95,8 +95,8 @@ const CreatePerson = (props) => {
               gender: "",
               nif: "",
               cellphone: "",
-              zipcode: "",
-              streetAddress: "",
+              zipCode: "",
+              address: "",
               email: "",
               photo: "",
               imageSrc: "",
@@ -175,22 +175,22 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={newPerson.streetAddress}
-        name={"streetAddress"}
+        value={newPerson.address}
+        name={"address"}
         labelName={"Street Address"}
         type={"address"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.streetAddress}
+        errors={errors.address}
       />
       <InputText
-        value={newPerson.zipcode}
-        name={"zipcode"}
+        value={newPerson.zipCode}
+        name={"zipCode"}
         labelName={"Zip Code"}
         type={"zip"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.zipcode}
+        errors={errors.zipCode}
         placeholder={"Ex: 4421-004"}
       />
       <InputText

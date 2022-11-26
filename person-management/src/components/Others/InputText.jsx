@@ -8,10 +8,10 @@ const InputText = (props) => {
   if (props.name === "email") {
     inputCol = "";
     divSize = "emailDiv";
-  } else if (props.name === "streetAddress") {
+  } else if (props.name === "address") {
     inputCol = "col-md-8";
     divSize = "streetAdressDiv";
-  } else if (props.name === "zipcode") {
+  } else if (props.name === "zipCode") {
     inputCol = "col-md-4";
     divSize = "zipCodeDiv";
   } else {

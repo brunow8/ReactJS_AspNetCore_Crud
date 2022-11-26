@@ -55,8 +55,8 @@ const AllPersons = (props) => {
   const viewHandler = (person) => {
     props.personView(person);
   }
-  const editHandler = (person) => {
-    props.personEdit(person);
+  const editHandler = (id) => {
+    props.personEdit(id);
   }
 
   return (

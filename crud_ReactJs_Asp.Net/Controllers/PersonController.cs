@@ -1,6 +1,5 @@
 ﻿using crud_ReactJs_Asp.Net.Entities;
 using crud_ReactJs_Asp.Net.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crud_ReactJs_Asp.Net.Controllers
@@ -26,6 +25,20 @@ namespace crud_ReactJs_Asp.Net.Controllers
                     person.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, person.ImageName);
                 }
                 return Ok(persons);
+            } catch (Exception ex) {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error trying to get all persons! Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getPersonDetails")]
+        public async Task<IActionResult> GetPersonById(long personId) {
+            try {
+                var person = await _personService.GetPersonById(personId);
+                if (person == null) {
+                    return NoContent();
+                }
+                person.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, person.ImageName);
+                return Ok(person);
             } catch (Exception ex) {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error trying to get all persons! Error: {ex.Message}");
             }

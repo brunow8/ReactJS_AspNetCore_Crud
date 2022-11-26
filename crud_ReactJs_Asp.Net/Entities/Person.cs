@@ -43,10 +43,7 @@ namespace crud_ReactJs_Asp.Net.Entities {
         public string ImageName { get; set; } = "";
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
-
-
-
+        public IFormFile? ImageFile { get; set; }
 
         [NotMapped]
         public string? ImageSrc { get; set; } = "";

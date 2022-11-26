@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GenderSelectBox from "../Others/GenderSelectBox";
 import InputImage from "../Others/InputImage";
 import InputText from "../Others/InputText";
@@ -13,9 +13,44 @@ const CreatePerson = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [personToUpdate, setPersonToUpdate] = useState({
-    ...props.personDetails,
+    id: 0,
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    gender: "",
+    nif: "",
+    cellphone: "",
+    zipCode: "",
+    address: "",
+    email: "",
+    photo: "",
+    imageSrc: "",
+    imageFile: null,
   });
 
+  const getPersonDetails = () => {
+    props.personAPI().fetchById(props.id).then(res => {
+      setPersonToUpdate({
+        id: res.data.id,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        birthday: res.data.birthday,
+        gender: res.data.gender,
+        nif: res.data.nif,
+        cellphone: res.data.cellphone,
+        zipCode: res.data.zipCode,
+        address: res.data.address,
+        email: res.data.email,
+        photo: res.data.imageName,
+        imageSrc: res.data.imageSrc,
+      });
+    });
+  }
+
+  useEffect(() => {
+    getPersonDetails();
+  }, [])
+  
   const onHandlerInput = (e) => {
     setPersonToUpdate({
       ...personToUpdate,
@@ -48,7 +83,7 @@ const CreatePerson = (props) => {
     }
   };
 
-  const changesPersonDetails = (e) => {
+  const changesPersonDetails = () => {
     setErrors(validation(personToUpdate));
     if (errors.hasError === false) {
       setLoading(true);
@@ -60,8 +95,8 @@ const CreatePerson = (props) => {
       formData.append("gender", personToUpdate.gender);
       formData.append("nif", personToUpdate.nif);
       formData.append("cellphone", personToUpdate.cellphone);
-      formData.append("zipcode", personToUpdate.zipcode);
-      formData.append("address", personToUpdate.streetAddress);
+      formData.append("zipcode", personToUpdate.zipCode);
+      formData.append("address", personToUpdate.address);
       formData.append("email", personToUpdate.email);
       formData.append("imageName", personToUpdate.photo);
       formData.append("imageSrc", personToUpdate.imageSrc);
@@ -77,35 +112,23 @@ const CreatePerson = (props) => {
             });
           } else {
             swal.fire("Success!", "Person updated with success!", "success");
-            props.GoBack("editPerson");
+            props.GoBack("editPersonSubmit");
           }
         });
       setLoading(false);
-    }
-
-    e.preventDefault();
-    setErrors(validation(props.personDetails));
-    if (errors.hasError === false) {
-      //API CALL TO ADD THE NEW PERSON TO THE DATABASE
-
-      props.GoBack("editPerson");
-      swal.fire("Success!", "Person details changed with success!", "success");
-    } else {
-      //DISPLAY ERRORS TO THE USER AND PERSON NOT CREATED
-      console.log("You have errors!");
     }
   };
   return (
     <>
       <GoBackArrow location={"editPerson"} editPerson={props.GoBack} />
       <InputImage
-        src={props.personDetails.imageSrc}
+        src={personToUpdate.imageSrc}
         changePhotoName={onHandlerInputImage}
         errors={errors.photo}
         disabled={false}
       />
       <InputText
-        value={props.personDetails.firstName}
+        value={personToUpdate.firstName}
         name={"firstName"}
         labelName={"First Name"}
         type={"name"}
@@ -115,7 +138,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Bruno"}
       />
       <InputText
-        value={props.personDetails.lastName}
+        value={personToUpdate.lastName}
         name={"lastName"}
         labelName={"Last Name"}
         type={"name"}
@@ -125,23 +148,23 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Barbosa"}
       />
       <InputText
-        value={props.personDetails.birthday.replace("/", "-")}
+        value={personToUpdate.birthday}
         name={"birthday"}
         labelName={"Date of Birth"}
-        type={"date"}
+        type={"datetime-local"}
         disabled={false}
         onHandlerInput={onHandlerInput}
         errors={errors.birthday}
         placeholder={""}
       />
       <GenderSelectBox
-        gender={props.personDetails.gender}
+        gender={personToUpdate.gender}
         handlerGender={handlerGender}
         disabled={false}
         errors={errors.gender}
       />
       <InputText
-        value={props.personDetails.nif}
+        value={personToUpdate.nif}
         name={"nif"}
         labelName={"Nif"}
         type={"text"}
@@ -151,7 +174,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={props.personDetails.cellphone}
+        value={personToUpdate.cellphone}
         name={"cellphone"}
         labelName={"Cellphone"}
         type={"text"}
@@ -161,26 +184,26 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={props.personDetails.streetAddress}
-        name={"streetAddress"}
+        value={personToUpdate.address}
+        name={"address"}
         labelName={"Street Address"}
         type={"address"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.streetAddress}
+        errors={errors.address}
       />
       <InputText
-        value={props.personDetails.zipcode}
-        name={"zipcode"}
+        value={personToUpdate.zipCode}
+        name={"zipCode"}
         labelName={"Zip Code"}
         type={"zip"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.zipcode}
+        errors={errors.zipCode}
         placeholder={"Ex: 4421-004"}
       />
       <InputText
-        value={props.personDetails.email}
+        value={personToUpdate.email}
         name={"email"}
         labelName={"Email"}
         type={"email"}
