@@ -22,16 +22,16 @@ const App = () => {
   });
 
   const [personDetails, setPersonDetails] = useState({});
-  const [initialPersons, setInitialPersons] = useState([]);
 
   const personAPI = (url = 'https://localhost:7171/Person') => {
     return{
       fetchAll: () => axios.get(url),
       create: newPerson => axios.post(url + "/createPerson", newPerson),
       update: updatePerson => axios.put(url, updatePerson),
-      delete: id => axios.delete(url + id)
+      delete: id => axios.delete(url + "?personId=" + id)
     }
   }
+  
   //Function that will receive the location of the user in the application and that 
   //will close that respective component and change it to the home page
   const GoBack = (data) => {
@@ -104,7 +104,7 @@ const App = () => {
       </>
     );
   } else if (appSettings.allPersons) {
-    content = <AllPersons GoBack={GoBack} initialPersons={initialPersons} personView={personView} personEdit={personEdit} />;
+    content = <AllPersons GoBack={GoBack} personAPI={personAPI} personView={personView} personEdit={personEdit} />;
   } else if (appSettings.createPerson) {
     content = <CreatePerson GoBack={GoBack} personAPI={personAPI}/>;
   } else if (appSettings.viewPerson) {
