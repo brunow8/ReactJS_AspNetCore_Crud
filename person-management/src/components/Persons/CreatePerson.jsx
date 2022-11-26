@@ -6,6 +6,7 @@ import validation from "../Others/Validation";
 import GoBackArrow from "../Shared/GoBackArrow";
 import style from "./../../css/AllPersons.module.css";
 import swal from "sweetalert2";
+
 const CreatePerson = (props) => {
   const [newPerson, setNewPerson] = useState({
     id: 0,
@@ -24,6 +25,8 @@ const CreatePerson = (props) => {
   });
   const [errors, setErrors] = useState({});
 
+  const [loading, setLoading] = useState(false);
+
   const onHandlerInputImage = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].name !== "") {
@@ -35,7 +38,7 @@ const CreatePerson = (props) => {
             ...newPerson,
             imageFile: imageFile,
             imageSrc: x.target.result,
-            photo: imageName
+            photo: imageName,
           });
         };
         reader.readAsDataURL(imageFile);
@@ -52,53 +55,58 @@ const CreatePerson = (props) => {
   const onHandlerInput = (e) => {
     setNewPerson({
       ...newPerson,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const submitNewPerson = (e) => {
+  const submitNewPerson = () => {
     setErrors(validation(newPerson));
     if (errors.hasError === false) {
+      setLoading(true);
       const formData = new FormData();
-      formData.append('id', newPerson.id);
-      formData.append('firstName', newPerson.firstName);
-      formData.append('lastName', newPerson.lastName);
-      formData.append('birthday', "13/03/1999");
-      formData.append('gender', newPerson.gender);
-      formData.append('nif', newPerson.nif);
-      formData.append('cellphone', newPerson.cellphone);
-      formData.append('zipcode', newPerson.zipcode);
-      formData.append('address', newPerson.streetAddress);
-      formData.append('email', newPerson.email);
-      formData.append('imageName', newPerson.photo);
-      formData.append('imageSrc', newPerson.imageSrc);
-      formData.append('imageFile', newPerson.imageFile);
-      props.personAPI().create(formData).then(res => {
-        if(res.data.error === true){
-          setErrors({
-            ...errors,
-            [res.data.field]: res.data.message
-          })
-        }else{
-          setNewPerson({
-          id: 0,
-          firstName: "",
-          lastName: "",
-          birthday: "",
-          gender: "",
-          nif: "",
-          cellphone: "",
-          zipcode: "",
-          streetAddress: "",
-          email: "",
-          photo: "",
-          imageSrc: "",
-          imageFile: null
+      formData.append("id", newPerson.id);
+      formData.append("firstName", newPerson.firstName);
+      formData.append("lastName", newPerson.lastName);
+      formData.append("birthday", newPerson.birthday);
+      formData.append("gender", newPerson.gender);
+      formData.append("nif", newPerson.nif);
+      formData.append("cellphone", newPerson.cellphone);
+      formData.append("zipcode", newPerson.zipcode);
+      formData.append("address", newPerson.streetAddress);
+      formData.append("email", newPerson.email);
+      formData.append("imageName", newPerson.photo);
+      formData.append("imageSrc", newPerson.imageSrc);
+      formData.append("imageFile", newPerson.imageFile);
+      props
+        .personAPI()
+        .create(formData)
+        .then((res) => {
+          if (res.data.error === true) {
+            setErrors({
+              ...errors,
+              [res.data.field]: res.data.message,
+            });
+          } else {
+            setNewPerson({
+              id: 0,
+              firstName: "",
+              lastName: "",
+              birthday: "",
+              gender: "",
+              nif: "",
+              cellphone: "",
+              zipcode: "",
+              streetAddress: "",
+              email: "",
+              photo: "",
+              imageSrc: "",
+              imageFile: null,
+            });
+            swal.fire("Success!", "Person created with success!", "success");
+            props.GoBack("createPerson");
+          }
         });
-        swal.fire("Success!", "Person created with success!", "success");
-        props.GoBack("createPerson");
-        }
-      })
+      setLoading(false);
     }
   };
   return (
@@ -196,12 +204,16 @@ const CreatePerson = (props) => {
         placeholder={"Ex: example@gmail.com"}
       />
       <div className="col-12 d-flex justify-content-center">
-        <div
-          className={`${style.createPersonButton}`}
-          onClick={submitNewPerson}
-        >
-          Create Person
-        </div>
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
+          <div
+            className={`${style.createPersonButton}`}
+            onClick={submitNewPerson}
+          >
+            Create Person
+          </div>
+        )}
       </div>
     </>
   );
