@@ -48,6 +48,10 @@ namespace crud_ReactJs_Asp.Net.Controllers
 
         [HttpDelete]
         public async Task<bool> DeletePerson(long personId) {
+            var person = await _personService.GetPersonById(personId);
+            if(person is not null) {
+                DeleteImage(person.ImageName);
+            }
             return await _personService.DeletePerson(personId);
         }
 
