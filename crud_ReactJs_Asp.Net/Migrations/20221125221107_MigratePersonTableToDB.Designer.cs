@@ -11,8 +11,8 @@ using crud_ReactJs_Asp.Net.Data.Context;
 namespace crud_ReactJs_Asp.Net.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221124113347_Initial")]
-    partial class Initial
+    [Migration("20221125221107_MigratePersonTableToDB")]
+    partial class MigratePersonTableToDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

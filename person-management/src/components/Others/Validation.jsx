@@ -52,19 +52,19 @@ const validation = (values) => {
         errors.hasError = true;
     }
 
-    if(values.streetAddress === ""){
-        errors.streetAddress = "Street Address is required!";
+    if(values.address === ""){
+        errors.address = "Street Address is required!";
         errors.hasError = true;
     }
 
-    if(values.zipcode === ""){
-        errors.zipcode = "Zip Code is required!";
+    if(values.zipCode === ""){
+        errors.zipCode = "Zip Code is required!";
         errors.hasError = true;
-    }else if(/[a-zA-Z]/.test(values.zipcode)){
-        errors.zipcode = "Zip Code must have only numbers!";
+    }else if(/[a-zA-Z]/.test(values.zipCode)){
+        errors.zipCode = "Zip Code must have only numbers!";
         errors.hasError = true;
-    }else if(values.zipcode.length < 8 || values.zipcode.length > 8){
-        errors.zipcode = "Zip Code must have 8 characters!";
+    }else if(values.zipCode.length < 8 || values.zipCode.length > 8){
+        errors.zipCode = "Zip Code must have 8 characters!";
         errors.hasError = true;
     }
 

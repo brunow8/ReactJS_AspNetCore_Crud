@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace crud_ReactJs_Asp.Net.Migrations
 {
-    public partial class Initial : Migration
+    public partial class MigratePersonTableToDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

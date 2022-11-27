@@ -11,9 +11,9 @@ namespace crud_ReactJs_Asp.Net.Services
         Task<Person> AddPerson(Person person);
         Task<bool> DeletePerson(long personId);
         Task<Person[]> GetAllPersons();
-        Task<Person?> GetPersonByEmailAsync(string personEmail);
+        Task<Person?> GetPersonByEmailAsync(Person person);
         Task<Person?> GetPersonById(long personId);
-        Task<Person?> GetPersonByNifAsync(string personNIF);
+        Task<Person?> GetPersonByNifAsync(Person person);
         Task<bool> SaveChangesAsync();
         Task<Person> UpdatePerson(Person person);
     }

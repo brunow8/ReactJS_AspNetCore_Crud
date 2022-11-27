@@ -1,43 +1,146 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GenderSelectBox from "../Others/GenderSelectBox";
 import InputImage from "../Others/InputImage";
 import InputText from "../Others/InputText";
 import validation from "../Others/Validation";
 import GoBackArrow from "../Shared/GoBackArrow";
-import style from './../../css/AllPersons.module.css';
-import swal from 'sweetalert2';
+import style from "./../../css/AllPersons.module.css";
+import swal from "sweetalert2";
+
 const CreatePerson = (props) => {
   const [errors, setErrors] = useState({});
+  const [dataIsCorrect, setDataIsCorrect] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
-  const onHandlerInput = (value, input) => {
-    props.onHandlerInputText(value, input);
+  const [personToUpdate, setPersonToUpdate] = useState({
+    id: 0,
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    gender: "",
+    nif: "",
+    cellphone: "",
+    zipCode: "",
+    address: "",
+    email: "",
+    photo: "",
+    imageSrc: "",
+    imageFile: null,
+  });
+
+  const getPersonDetails = () => {
+    if (firstRender) {
+      props
+        .personAPI()
+        .fetchById(props.id)
+        .then((res) => {
+          setPersonToUpdate({
+            id: res.data.id,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            birthday: res.data.birthday,
+            gender: res.data.gender,
+            nif: res.data.nif,
+            cellphone: res.data.cellphone,
+            zipCode: res.data.zipCode,
+            address: res.data.address,
+            email: res.data.email,
+            photo: res.data.imageName,
+            imageSrc: res.data.imageSrc,
+          });
+        });
+      setFirstRender(false);
+    }
   };
 
-  const changesPersonDetails = (e) => {
-    e.preventDefault();
-    setErrors(validation(props.personDetails));
-    if (errors.hasError === false) {
-      //API CALL TO ADD THE NEW PERSON TO THE DATABASE 
-      
-      props.GoBack("editPerson");
-      swal.fire("Success!", "Person details changed with success!", "success");
+  const onHandlerInput = (e) => {
+    setPersonToUpdate({
+      ...personToUpdate,
+      [e.target.name]: e.target.value,
+    });
+  };
 
+  const handlerGender = (gender) => {
+    setPersonToUpdate((prevState) => {
+      return { ...prevState, gender: gender };
+    });
+  };
+
+  const onHandlerInputImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      if (e.target.files[0].name !== "") {
+        let imageFile = e.target.files[0];
+        let imageName = e.target.files[0].name;
+        const reader = new FileReader();
+        reader.onload = (x) => {
+          setPersonToUpdate({
+            ...personToUpdate,
+            imageFile: imageFile,
+            imageSrc: x.target.result,
+            photo: imageName,
+          });
+        };
+        reader.readAsDataURL(imageFile);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getPersonDetails();
+    if (!errors.hasError) {
+      setDataIsCorrect(true);
     } else {
-      //DISPLAY ERRORS TO THE USER AND PERSON NOT CREATED
-      console.log("You have errors!");
+      setDataIsCorrect(false);
+    }
+  }, [errors, personToUpdate]);
+
+  const changesPersonDetails = () => {
+    setErrors(validation(personToUpdate));
+    console.log(dataIsCorrect);
+    if (dataIsCorrect) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("id", personToUpdate.id);
+      formData.append("firstName", personToUpdate.firstName);
+      formData.append("lastName", personToUpdate.lastName);
+      formData.append("birthday", personToUpdate.birthday);
+      formData.append("gender", personToUpdate.gender);
+      formData.append("nif", personToUpdate.nif);
+      formData.append("cellphone", personToUpdate.cellphone);
+      formData.append("zipcode", personToUpdate.zipCode);
+      formData.append("address", personToUpdate.address);
+      formData.append("email", personToUpdate.email);
+      formData.append("imageName", personToUpdate.photo);
+      formData.append("imageSrc", personToUpdate.imageSrc);
+      formData.append("imageFile", personToUpdate.imageFile);
+      props
+        .personAPI()
+        .update(formData)
+        .then((res) => {
+          if (res.data.error === true) {
+            setErrors({
+              [res.data.field]: res.data.message,
+            });
+          } else {
+            swal.fire("Success!", "Person updated with success!", "success");
+            props.GoBack("editPersonSubmit");
+          }
+        });
+      setLoading(false);
     }
   };
   return (
     <>
       <GoBackArrow location={"editPerson"} editPerson={props.GoBack} />
       <InputImage
-        src={props.personDetails.photo}
-        changePhotoName={onHandlerInput}
+        src={personToUpdate.imageSrc}
+        changePhotoName={onHandlerInputImage}
         errors={errors.photo}
         disabled={false}
       />
       <InputText
-        value={props.personDetails.firstName}
+        value={personToUpdate.firstName}
         name={"firstName"}
         labelName={"First Name"}
         type={"name"}
@@ -47,7 +150,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Bruno"}
       />
       <InputText
-        value={props.personDetails.lastName}
+        value={personToUpdate.lastName}
         name={"lastName"}
         labelName={"Last Name"}
         type={"name"}
@@ -57,24 +160,23 @@ const CreatePerson = (props) => {
         placeholder={"Ex: Barbosa"}
       />
       <InputText
-        value={props.personDetails.birthday.replace("/", "-")}
+        value={personToUpdate.birthday}
         name={"birthday"}
         labelName={"Date of Birth"}
-        type={"date"}
+        type={"datetime-local"}
         disabled={false}
         onHandlerInput={onHandlerInput}
         errors={errors.birthday}
         placeholder={""}
-
       />
       <GenderSelectBox
-        gender={props.personDetails.gender}
-        handlerGender={onHandlerInput}
+        gender={personToUpdate.gender}
+        handlerGender={handlerGender}
         disabled={false}
         errors={errors.gender}
       />
       <InputText
-        value={props.personDetails.nif}
+        value={personToUpdate.nif}
         name={"nif"}
         labelName={"Nif"}
         type={"text"}
@@ -84,7 +186,7 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={props.personDetails.cellphone}
+        value={personToUpdate.cellphone}
         name={"cellphone"}
         labelName={"Cellphone"}
         type={"text"}
@@ -94,26 +196,26 @@ const CreatePerson = (props) => {
         placeholder={"Ex: 987654321"}
       />
       <InputText
-        value={props.personDetails.streetAddress}
-        name={"streetAddress"}
+        value={personToUpdate.address}
+        name={"address"}
         labelName={"Street Address"}
         type={"address"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.streetAddress}
+        errors={errors.address}
       />
       <InputText
-        value={props.personDetails.zipcode}
-        name={"zipcode"}
+        value={personToUpdate.zipCode}
+        name={"zipCode"}
         labelName={"Zip Code"}
         type={"zip"}
         disabled={false}
         onHandlerInput={onHandlerInput}
-        errors={errors.zipcode}
+        errors={errors.zipCode}
         placeholder={"Ex: 4421-004"}
       />
       <InputText
-        value={props.personDetails.email}
+        value={personToUpdate.email}
         name={"email"}
         labelName={"Email"}
         type={"email"}
@@ -123,9 +225,16 @@ const CreatePerson = (props) => {
         placeholder={"Ex: example@gmail.com"}
       />
       <div className="col-12 d-flex justify-content-center">
-        <div className={`${style.createPersonButton}`} onClick={changesPersonDetails}>
-          Save Changes
-        </div>
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
+          <div
+            className={`${style.createPersonButton}`}
+            onClick={changesPersonDetails}
+          >
+            Save Changes
+          </div>
+        )}
       </div>
     </>
   );

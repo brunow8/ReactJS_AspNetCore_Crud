@@ -7,7 +7,7 @@ const ViewPerson = (props) => {
   return (
     <>
       <GoBackArrow location={"viewPerson"} viewPerson={props.GoBack} />
-      <InputImage src={"personImage.jfif"} disabled={true}/>
+      <InputImage src={props.personDetails.imageSrc} disabled={true}/>
       <InputText
         name={"firstName"}
         value={props.personDetails.firstName}
@@ -25,7 +25,7 @@ const ViewPerson = (props) => {
         name={"birthday"}
         value={props.personDetails.birthday}
         labelName={"Date of Birth"}
-        type={"text"}
+        type={"datetime-local"}
         disabled={true}
       />
       <GenderSelectBox gender={props.personDetails.gender} disabled={true} />
@@ -44,14 +44,14 @@ const ViewPerson = (props) => {
         disabled={true}
       />
       <InputText
-        value={props.personDetails.streetAddress}
+        value={props.personDetails.address}
         name={"streetAddress"}
         labelName={"Street Address"}
         type={"address"}
         disabled={true}
       />
       <InputText
-        value={props.personDetails.zipcode}
+        value={props.personDetails.zipCode}
         name={"zipcode"}
         labelName={"Zip Code"}
         type={"zip"}

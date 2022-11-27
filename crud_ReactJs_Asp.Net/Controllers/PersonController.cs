@@ -1,6 +1,5 @@
 ﻿using crud_ReactJs_Asp.Net.Entities;
 using crud_ReactJs_Asp.Net.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crud_ReactJs_Asp.Net.Controllers
@@ -31,7 +30,21 @@ namespace crud_ReactJs_Asp.Net.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("getPersonDetails")]
+        public async Task<IActionResult> GetPersonById(long personId) {
+            try {
+                var person = await _personService.GetPersonById(personId);
+                if (person == null) {
+                    return NoContent();
+                }
+                person.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, person.ImageName);
+                return Ok(person);
+            } catch (Exception ex) {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error trying to get all persons! Error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("createPerson")]
         public async Task<Person> CreatePerson([FromForm] Person person) {
             person.ImageName = await SaveImage(person.ImageFile);
             return await _personService.AddPerson(person);
@@ -48,6 +61,10 @@ namespace crud_ReactJs_Asp.Net.Controllers
 
         [HttpDelete]
         public async Task<bool> DeletePerson(long personId) {
+            var person = await _personService.GetPersonById(personId);
+            if(person is not null) {
+                DeleteImage(person.ImageName);
+            }
             return await _personService.DeletePerson(personId);
         }
 
