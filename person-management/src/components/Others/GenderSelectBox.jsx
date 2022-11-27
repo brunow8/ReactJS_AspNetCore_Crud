@@ -4,13 +4,7 @@ import style from "./../../css/Input.module.css";
 const GenderSelectBox = (props) => {
   const checkCircle = (gender) => {
     if (!props.disabled) {
-      if (gender === "Male") {
-        props.handlerGender("Male");
-      } else if (gender === "Female") {
-        props.handlerGender("Female");
-      } else if (gender === "Other") {
-        props.handlerGender("Other");
-      }
+        props.handlerGender(gender);
     }
   };
 
