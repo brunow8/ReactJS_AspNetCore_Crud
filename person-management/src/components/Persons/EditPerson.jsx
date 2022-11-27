@@ -9,8 +9,9 @@ import swal from "sweetalert2";
 
 const CreatePerson = (props) => {
   const [errors, setErrors] = useState({});
-
+  const [dataIsCorrect, setDataIsCorrect] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
   const [personToUpdate, setPersonToUpdate] = useState({
     id: 0,
@@ -29,28 +30,30 @@ const CreatePerson = (props) => {
   });
 
   const getPersonDetails = () => {
-    props.personAPI().fetchById(props.id).then(res => {
-      setPersonToUpdate({
-        id: res.data.id,
-        firstName: res.data.firstName,
-        lastName: res.data.lastName,
-        birthday: res.data.birthday,
-        gender: res.data.gender,
-        nif: res.data.nif,
-        cellphone: res.data.cellphone,
-        zipCode: res.data.zipCode,
-        address: res.data.address,
-        email: res.data.email,
-        photo: res.data.imageName,
-        imageSrc: res.data.imageSrc,
-      });
-    });
-  }
+    if (firstRender) {
+      props
+        .personAPI()
+        .fetchById(props.id)
+        .then((res) => {
+          setPersonToUpdate({
+            id: res.data.id,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            birthday: res.data.birthday,
+            gender: res.data.gender,
+            nif: res.data.nif,
+            cellphone: res.data.cellphone,
+            zipCode: res.data.zipCode,
+            address: res.data.address,
+            email: res.data.email,
+            photo: res.data.imageName,
+            imageSrc: res.data.imageSrc,
+          });
+        });
+      setFirstRender(false);
+    }
+  };
 
-  useEffect(() => {
-    getPersonDetails();
-  }, [])
-  
   const onHandlerInput = (e) => {
     setPersonToUpdate({
       ...personToUpdate,
@@ -83,9 +86,19 @@ const CreatePerson = (props) => {
     }
   };
 
+  useEffect(() => {
+    getPersonDetails();
+    if (!errors.hasError) {
+      setDataIsCorrect(true);
+    } else {
+      setDataIsCorrect(false);
+    }
+  }, [errors, personToUpdate]);
+
   const changesPersonDetails = () => {
     setErrors(validation(personToUpdate));
-    if (errors.hasError === false) {
+    console.log(dataIsCorrect);
+    if (dataIsCorrect) {
       setLoading(true);
       const formData = new FormData();
       formData.append("id", personToUpdate.id);

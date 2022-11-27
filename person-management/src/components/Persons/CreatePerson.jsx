@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GenderSelectBox from "../Others/GenderSelectBox";
 import InputImage from "../Others/InputImage";
 import InputText from "../Others/InputText";
@@ -24,9 +24,9 @@ const CreatePerson = (props) => {
     imageFile: null,
   });
   const [errors, setErrors] = useState({});
-
   const [loading, setLoading] = useState(false);
-
+  const [dataIsCorrect, setDataIsCorrect] = useState(false);
+  const [checkDataIsCorrect, setCheckDataIsCorrect] = useState(false);
   const onHandlerInputImage = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].name !== "") {
@@ -59,9 +59,17 @@ const CreatePerson = (props) => {
     });
   };
 
+  useEffect(() => {
+      if (!errors.hasError) {
+        setDataIsCorrect(true);
+      } else {
+        setDataIsCorrect(false);
+      }
+  }, [errors, newPerson]);
+
   const submitNewPerson = () => {
     setErrors(validation(newPerson));
-    if (errors.hasError === false) {
+    if (dataIsCorrect) {
       setLoading(true);
       const formData = new FormData();
       formData.append("id", newPerson.id);
@@ -101,10 +109,10 @@ const CreatePerson = (props) => {
               imageSrc: "",
               imageFile: null,
             });
-            swal.fire("Success!", "Person created with success!", "success");
-            props.GoBack("createPerson");
-          }
-        });
+      swal.fire("Success!", "Person created with success!", "success");
+      props.GoBack("createPerson");
+        }
+      });
       setLoading(false);
     }
   };
