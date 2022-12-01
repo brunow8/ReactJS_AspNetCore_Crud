@@ -26,7 +26,6 @@ const CreatePerson = (props) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [dataIsCorrect, setDataIsCorrect] = useState(false);
-  const [checkDataIsCorrect, setCheckDataIsCorrect] = useState(false);
   const onHandlerInputImage = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (e.target.files[0].name !== "") {

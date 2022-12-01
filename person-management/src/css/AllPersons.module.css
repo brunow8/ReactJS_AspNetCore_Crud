@@ -12,8 +12,6 @@
   background: #3c3a3a;
   width: 98%;
   border-radius: 20px;
-  display: flex;
-  justify-content: center;
   border: 1px solid #676767;
   height: 340px;
   margin-bottom: 10px;
@@ -31,7 +29,7 @@
   margin-top: 5px;
 }
 .imagePersonCard {
-  width: 90%;
+  width: 70%;
   height: 55%;
   border-radius: 50%;
   margin-top: 20px;
@@ -117,19 +115,19 @@
 
 @media only screen and (min-width: 1400px) {
   .imagePersonCard {
-    width: 45%;
+    width: 35%;
   }
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399.98px) {
   .imagePersonCard {
-    width: 55%;
+    width: 41%;
   }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
   .imagePersonCard {
-    width: 65%;
+    width: 49%;
   }
 }
 

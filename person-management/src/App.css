@@ -15,7 +15,7 @@
 
 @media only screen and (max-width: 575.98px) and (min-width: 300px) {
   .containerApp {
-    height: 101vh;
+    height: 160vh;
     border-radius: 0px;
     top: 0px;
   }
@@ -70,6 +70,9 @@
   }
   .emailDiv{
     width: 90%;
+  }
+  .MainApp{
+    height: inherit;
   }
 }
 

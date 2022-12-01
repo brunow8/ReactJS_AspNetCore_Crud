@@ -1,5 +1,4 @@
 import React from "react";
-import personImage from "./../../images/personImage.jfif";
 import style from "./../../css/AllPersons.module.css";
 
 const PersonCard = (props) => {
@@ -18,7 +17,7 @@ const PersonCard = (props) => {
         <div>
           <div className="d-flex justify-content-center">
             <img
-              src={personImage}
+              src={props.personDetails.imageSrc}
               alt="PersonImage"
               className={style.imagePersonCard}
             />
@@ -33,23 +32,28 @@ const PersonCard = (props) => {
               {props.personDetails.lastName}
             </h4>
           </div>
-          <div
-            className={`d-flex justify-content-between ${style.divIconsPersonCard}`}
+        </div>
+        <div
+          className={`d-flex justify-content-between ${style.divIconsPersonCard}`}
+        >
+          <span
+            className={`material-icons ${style.editButton}`}
+            onClick={() => editPerson(props.personDetails)}
           >
-            <span className={`material-icons ${style.editButton}`} onClick={() => editPerson(props.personDetails)}>edit</span>
-            <span
-              className={`material-icons ${style.viewButton}`}
-              onClick={() => viewPerson(props.personDetails)}
-            >
-              visibility
-            </span>
-            <span
-              className={`material-icons ${style.deleteButton}`}
-              onClick={() => deletePerson(props.personDetails)}
-            >
-              delete
-            </span>
-          </div>
+            edit
+          </span>
+          <span
+            className={`material-icons ${style.viewButton}`}
+            onClick={() => viewPerson(props.personDetails)}
+          >
+            visibility
+          </span>
+          <span
+            className={`material-icons ${style.deleteButton}`}
+            onClick={() => deletePerson(props.personDetails)}
+          >
+            delete
+          </span>
         </div>
       </div>
     </div>

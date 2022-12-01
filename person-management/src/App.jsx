@@ -98,10 +98,6 @@ const App = () => {
     setPersonDetails(person);
   };
 
-  const onHandlerEdit = (person) => {
-    setAppSettings(person);
-  };
-
   //Simple validation to show the correct HTML of the component the user is.
   let content = "";
   if (appSettings.homePage) {
@@ -130,7 +126,6 @@ const App = () => {
         GoBack={GoBack}
         id={personDetails.id}
         personAPI={personAPI}
-        onHandlerEdit={onHandlerEdit}
       />
     );
   }

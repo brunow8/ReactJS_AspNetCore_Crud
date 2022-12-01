@@ -85,7 +85,7 @@ const AllPersons = (props) => {
     content = (
       <h1
         className="d-flex justify-content-center"
-        style={{ color: "#2f6e82" }}
+        style={{ color: "#2f6e82", textAlign: "center" }}
       >
         Resultados não encontrados
       </h1>
